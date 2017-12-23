@@ -103,8 +103,8 @@ int main(int argc, char *argv[])
         printf(" -i, --get-interval     Get the current archive interval in json format.\n");
         printf(" -t, --get-time         Get weather station time in json format.\n");
         printf(" -s, --set-time         Set weather station time to system time.\n");
-        printf(" -g, --get-graph        Get graph data.\n");
-        printf(" -a, --get-archive=arc  Print either:\n");
+        printf(" -g, --get-graph        Get graph data in json format.\n");
+        printf(" -a, --get-archive=arc  Print  in csv format either:\n");
         printf("                          - all the archive records (default)\n");
         printf("                          - all the records since arc date\n");
         printf("                            (in yyyy-mm-dd[THH:MM format]\n");
@@ -133,7 +133,7 @@ int main(int argc, char *argv[])
         printf("Opening Serial Port %s...\n", szttyDevice);
     fdser = open(szttyDevice, O_RDWR | O_NOCTTY );
     if (fdser < 0) {
-        perror("vproweather: Problem opening serial device, check device name.");
+        perror("{\"name\" : \"vproweather\", \"value\" : \" Problem opening serial device, check device name.} ");
         exit(2);
     }
 
@@ -151,12 +151,12 @@ int main(int argc, char *argv[])
     cfsetispeed (&newtio, B19200);
 
     if(tcsetattr(fdser, TCSAFLUSH, &newtio)) {
-        perror("vproweather: Problem configuring serial device, check device name.");
+        perror("{\"name\" : \"vproweather\", \"value\" : \"Problem configuring serial device, check device name.\" } ");
         exit(2);
     }
 
     if(tcflush(fdser, TCIOFLUSH)) {
-        perror("vproweather: Problem flushing serial device, check device name.");
+        perror("{\"name\" : \"vproweather\", \"value\" : \" Problem flushing serial device, check device name.\" }" );
         exit(2);
     }
 
@@ -165,7 +165,7 @@ int main(int argc, char *argv[])
     if(bVerbose)
         printf("Waking up weather station...\n");
     if(!WakeUp(fdser)) {
-        fprintf(stderr, "vproweather: Can't wake up weather station- no response.\n");
+        fprintf(stderr, "{\"name\" : \"vproweather\", \"value\" : \" Can't wake up weather station- no response.\" } ");
         exit(2);
     }
 
@@ -177,7 +177,7 @@ int main(int argc, char *argv[])
     /* turn on backlite */
     if(bBKLOn) {
         if(bVerbose)
-            printf("Turning Backlite ON...\n");
+            printf("Turning Backlight ON\n");
         while(ReadNextChar(fdser, &ch));    /* clear channel and delay */
         while(ReadNextChar(fdser, &ch));    /* clear channel and delay */
         strcpy(szSerBuffer, "LAMPS 1\n");   /* make Davis cmd string */
@@ -191,7 +191,7 @@ int main(int argc, char *argv[])
     /* turn off backlite */
     if(bBKLOff) {
         if(bVerbose)
-            printf("Turning Backlite OFF...\n");
+            printf("Turning Backlight OFF...\n");
         while(ReadNextChar(fdser, &ch));        /* clear channel and delay */
         strcpy(szSerBuffer, "LAMPS 0\n");   /* make Davis cmd string */
         if(write(fdser, &szSerBuffer, strlen(szSerBuffer)) != strlen(szSerBuffer))
@@ -235,11 +235,11 @@ int main(int argc, char *argv[])
         tcdrain(fdser);
 
         if(!ReadNextChar(fdser, &ch)) {
-            fprintf(stderr, "vproweather: No response to model number query.\n");
+            fprintf(stderr, "{\"name\" : \"vproweather\", \"value\" : \" No response to model number query.\" } \n");
             exit(2);
         }
         if(!ReadNextChar(fdser, &ch)) {
-            fprintf(stderr, "vproweather: Model number byte not sent.\n");
+            fprintf(stderr, "{\"name\" : \"vproweather\", \"value\" : \" Model number byte not sent.\" } \n");
             exit(2);
         }
         printf("Model: Davis ");
@@ -265,7 +265,7 @@ int main(int argc, char *argv[])
           exit(2);
         }
 
-        printf("archiveTime = %d\n", (uint8_t)szSerBuffer[1]);
+        printf("{\"name\" : \"archiveTime\", \"value\" : %d , \"description\": \"current archive interval. \"}\n", (uint8_t)szSerBuffer[1]);
     }
 
     /* Get weather station time */
@@ -291,7 +291,7 @@ int main(int argc, char *argv[])
         }
         ReadNextChar(fdser, &ch);           /* get ACK */
         if(ch != ACK) {
-            fprintf(stderr, "vproweather: Failed to get ACK.\n");
+            fprintf(stderr, "{\"name\" : \"vproweather\", \"value\" : \" Failed to get ACK.\" } \n");
             exit(2);
         }
         else if(bVerbose)
@@ -322,7 +322,7 @@ int main(int argc, char *argv[])
 
         ReadNextChar(fdser, &ch);           /* get ACK from console */
         if(ch != 0x06) {
-            fprintf(stderr, "vproweather: CRC Failed, didn't get ACK (%d)\n", ch);
+            fprintf(stderr, "{\"name\" : \"vproweather\", \"value\" : \" CRC Failed, didn't get ACK (%d).\" } \n", ch);
             exit(2);
         }
         else if(bVerbose)
@@ -463,7 +463,7 @@ int main(int argc, char *argv[])
     /* all done, exit */
     tcsetattr(fdser, TCSANOW, &oldtio); /* restore previous port settings */
     if(close(fdser)) {
-        perror("vproweather: Problem closing serial device, check device name.");
+        perror("{\"name\" : \"vproweather\", \"value\" : \" Problem closing serial device, check device name.\" } ");
         exit(2);
     }
 
@@ -569,7 +569,7 @@ int GetParms(int argc, char *argv[])
                     archiveRecords = strtol(optarg, &endptr, 10);
 
                     if (*endptr != '\0' || endptr == optarg || archiveRecords < 0) {
-                        fprintf(stderr, "vproweather: Illegal date or number of archive records to download specified.\n");
+                        fprintf(stderr, "{\"name\" : \"vproweather\", \"value\" : \" Illegal date or number of archive records to download specified.\" } \n");
                         return 0;
                     }
                   }
@@ -586,7 +586,7 @@ int GetParms(int argc, char *argv[])
                 /* Get delay time */
                 i = atoi(optarg);
                 if(i < 0 || i > 255) {
-                    fprintf(stderr, "vproweather: Illegal delay specified.\n");
+                    fprintf(stderr, "{\"name\" : \"vproweather\", \"value\" : \" Illegal delay specified.\" } \n");
                     return 0;
                 }
                 yDelay = (unsigned char)i;
@@ -603,7 +603,7 @@ int GetParms(int argc, char *argv[])
         if (optind < argc)          /* get serial device name */
             strcpy(szttyDevice, argv[optind]);
         else {
-            fprintf(stderr, "vproweather: No serial device specified\n");
+            fprintf(stderr, "{\"name\" : \"vproweather\", \"value\" : \" No serial device specified.\" } \n");
             return 0;
         }
     }
@@ -664,7 +664,7 @@ int ReadNextChar(int nfd, char *pChar)
 
     nResult = read(nfd, pChar, 1);
     if(nResult == -1) {
-        perror("vproweather: Problem reading serial device.");
+        perror("{\"name\" : \"vproweather\", \"value\" : \" Problem reading serial device.\" } ");
         exit(2);
     }
     return nResult;

@@ -32,238 +32,237 @@
 
 /* CCITT table of CRC values */
 static uint16_t crc_table [] = {
-0x0,     0x1021,  0x2042,  0x3063,  0x4084,  0x50a5,  0x60c6,  0x70e7,
-0x8108,  0x9129,  0xa14a,  0xb16b,  0xc18c,  0xd1ad,  0xe1ce,  0xf1ef,
-0x1231,  0x210,   0x3273,  0x2252,  0x52b5,  0x4294,  0x72f7,  0x62d6,
-0x9339,  0x8318,  0xb37b,  0xa35a,  0xd3bd,  0xc39c,  0xf3ff,  0xe3de,
-0x2462,  0x3443,  0x420,   0x1401,  0x64e6,  0x74c7,  0x44a4,  0x5485,
-0xa56a,  0xb54b,  0x8528,  0x9509,  0xe5ee,  0xf5cf,  0xc5ac,  0xd58d,
-0x3653,  0x2672,  0x1611,  0x630,   0x76d7,  0x66f6,  0x5695,  0x46b4,
-0xb75b,  0xa77a,  0x9719,  0x8738,  0xf7df,  0xe7fe,  0xd79d,  0xc7bc,
-0x48c4,  0x58e5,  0x6886,  0x78a7,  0x840,   0x1861,  0x2802,  0x3823,
-0xc9cc,  0xd9ed,  0xe98e,  0xf9af,  0x8948,  0x9969,  0xa90a,  0xb92b,
-0x5af5,  0x4ad4,  0x7ab7,  0x6a96,  0x1a71,  0xa50,   0x3a33,  0x2a12,
-0xdbfd,  0xcbdc,  0xfbbf,  0xeb9e,  0x9b79,  0x8b58,  0xbb3b,  0xab1a,
-0x6ca6,  0x7c87,  0x4ce4,  0x5cc5,  0x2c22,  0x3c03,  0xc60,   0x1c41,
-0xedae,  0xfd8f,  0xcdec,  0xddcd,  0xad2a,  0xbd0b,  0x8d68,  0x9d49,
-0x7e97,  0x6eb6,  0x5ed5,  0x4ef4,  0x3e13,  0x2e32,  0x1e51,  0xe70,
-0xff9f,  0xefbe,  0xdfdd,  0xcffc,  0xbf1b,  0xaf3a,  0x9f59,  0x8f78,
-0x9188,  0x81a9,  0xb1ca,  0xa1eb,  0xd10c,  0xc12d,  0xf14e,  0xe16f,
-0x1080,  0xa1,    0x30c2,  0x20e3,  0x5004,  0x4025,  0x7046,  0x6067,
-0x83b9,  0x9398,  0xa3fb,  0xb3da,  0xc33d,  0xd31c,  0xe37f,  0xf35e,
-0x2b1,   0x1290,  0x22f3,  0x32d2,  0x4235,  0x5214,  0x6277,  0x7256,
-0xb5ea,  0xa5cb,  0x95a8,  0x8589,  0xf56e,  0xe54f,  0xd52c,  0xc50d,
-0x34e2,  0x24c3,  0x14a0,  0x481,   0x7466,  0x6447,  0x5424,  0x4405,
-0xa7db,  0xb7fa,  0x8799,  0x97b8,  0xe75f,  0xf77e,  0xc71d,  0xd73c,
-0x26d3,  0x36f2,  0x691,   0x16b0,  0x6657,  0x7676,  0x4615,  0x5634,
-0xd94c,  0xc96d,  0xf90e,  0xe92f,  0x99c8,  0x89e9,  0xb98a,  0xa9ab,
-0x5844,  0x4865,  0x7806,  0x6827,  0x18c0,  0x8e1,   0x3882,  0x28a3,
-0xcb7d,  0xdb5c,  0xeb3f,  0xfb1e,  0x8bf9,  0x9bd8,  0xabbb,  0xbb9a,
-0x4a75,  0x5a54,  0x6a37,  0x7a16,  0xaf1,   0x1ad0,  0x2ab3,  0x3a92,
-0xfd2e,  0xed0f,  0xdd6c,  0xcd4d,  0xbdaa,  0xad8b,  0x9de8,  0x8dc9,
-0x7c26,  0x6c07,  0x5c64,  0x4c45,  0x3ca2,  0x2c83,  0x1ce0,  0xcc1,
-0xef1f,  0xff3e,  0xcf5d,  0xdf7c,  0xaf9b,  0xbfba,  0x8fd9,  0x9ff8,
-0x6e17,  0x7e36,  0x4e55,  0x5e74,  0x2e93,  0x3eb2,  0xed1,   0x1ef0,
+    0x0,     0x1021,  0x2042,  0x3063,  0x4084,  0x50a5,  0x60c6,  0x70e7,
+    0x8108,  0x9129,  0xa14a,  0xb16b,  0xc18c,  0xd1ad,  0xe1ce,  0xf1ef,
+    0x1231,  0x210,   0x3273,  0x2252,  0x52b5,  0x4294,  0x72f7,  0x62d6,
+    0x9339,  0x8318,  0xb37b,  0xa35a,  0xd3bd,  0xc39c,  0xf3ff,  0xe3de,
+    0x2462,  0x3443,  0x420,   0x1401,  0x64e6,  0x74c7,  0x44a4,  0x5485,
+    0xa56a,  0xb54b,  0x8528,  0x9509,  0xe5ee,  0xf5cf,  0xc5ac,  0xd58d,
+    0x3653,  0x2672,  0x1611,  0x630,   0x76d7,  0x66f6,  0x5695,  0x46b4,
+    0xb75b,  0xa77a,  0x9719,  0x8738,  0xf7df,  0xe7fe,  0xd79d,  0xc7bc,
+    0x48c4,  0x58e5,  0x6886,  0x78a7,  0x840,   0x1861,  0x2802,  0x3823,
+    0xc9cc,  0xd9ed,  0xe98e,  0xf9af,  0x8948,  0x9969,  0xa90a,  0xb92b,
+    0x5af5,  0x4ad4,  0x7ab7,  0x6a96,  0x1a71,  0xa50,   0x3a33,  0x2a12,
+    0xdbfd,  0xcbdc,  0xfbbf,  0xeb9e,  0x9b79,  0x8b58,  0xbb3b,  0xab1a,
+    0x6ca6,  0x7c87,  0x4ce4,  0x5cc5,  0x2c22,  0x3c03,  0xc60,   0x1c41,
+    0xedae,  0xfd8f,  0xcdec,  0xddcd,  0xad2a,  0xbd0b,  0x8d68,  0x9d49,
+    0x7e97,  0x6eb6,  0x5ed5,  0x4ef4,  0x3e13,  0x2e32,  0x1e51,  0xe70,
+    0xff9f,  0xefbe,  0xdfdd,  0xcffc,  0xbf1b,  0xaf3a,  0x9f59,  0x8f78,
+    0x9188,  0x81a9,  0xb1ca,  0xa1eb,  0xd10c,  0xc12d,  0xf14e,  0xe16f,
+    0x1080,  0xa1,    0x30c2,  0x20e3,  0x5004,  0x4025,  0x7046,  0x6067,
+    0x83b9,  0x9398,  0xa3fb,  0xb3da,  0xc33d,  0xd31c,  0xe37f,  0xf35e,
+    0x2b1,   0x1290,  0x22f3,  0x32d2,  0x4235,  0x5214,  0x6277,  0x7256,
+    0xb5ea,  0xa5cb,  0x95a8,  0x8589,  0xf56e,  0xe54f,  0xd52c,  0xc50d,
+    0x34e2,  0x24c3,  0x14a0,  0x481,   0x7466,  0x6447,  0x5424,  0x4405,
+    0xa7db,  0xb7fa,  0x8799,  0x97b8,  0xe75f,  0xf77e,  0xc71d,  0xd73c,
+    0x26d3,  0x36f2,  0x691,   0x16b0,  0x6657,  0x7676,  0x4615,  0x5634,
+    0xd94c,  0xc96d,  0xf90e,  0xe92f,  0x99c8,  0x89e9,  0xb98a,  0xa9ab,
+    0x5844,  0x4865,  0x7806,  0x6827,  0x18c0,  0x8e1,   0x3882,  0x28a3,
+    0xcb7d,  0xdb5c,  0xeb3f,  0xfb1e,  0x8bf9,  0x9bd8,  0xabbb,  0xbb9a,
+    0x4a75,  0x5a54,  0x6a37,  0x7a16,  0xaf1,   0x1ad0,  0x2ab3,  0x3a92,
+    0xfd2e,  0xed0f,  0xdd6c,  0xcd4d,  0xbdaa,  0xad8b,  0x9de8,  0x8dc9,
+    0x7c26,  0x6c07,  0x5c64,  0x4c45,  0x3ca2,  0x2c83,  0x1ce0,  0xcc1,
+    0xef1f,  0xff3e,  0xcf5d,  0xdf7c,  0xaf9b,  0xbfba,  0x8fd9,  0x9ff8,
+    0x6e17,  0x7e36,  0x4e55,  0x5e74,  0x2e93,  0x3eb2,  0xed1,   0x1ef0,
 };
 
 
 static char szForeStrings[] =
-
-"Mostly clear and cooler.\0"
-"Mostly clear with little temperature change.\0"
-"Mostly clear for 12 hrs. with little temperature change.\0"
-"Mostly clear for 12 to 24 hrs. and cooler.\0"
-"Mostly clear with little temperature change.\0"
-"Partly cloudy and cooler.\0"
-"Partly cloudy with little temperature change.\0"
-"Partly cloudy with little temperature change.\0"
-"Mostly clear and warmer.\0"
-"Partly cloudy with little temperature change.\0"
-"Partly cloudy with little temperature change.\0"
-"Mostly clear with little temperature change.\0"
-"Increasing clouds and warmer. Precipitation possible within 24 to 48 hrs.\0"
-"Partly cloudy with little temperature change.\0"
-"Mostly clear with little temperature change.\0"
-"Increasing clouds with little temperature change. Precipitation possible within 24 hrs.\0"
-"Mostly clear with little temperature change.\0"
-"Partly cloudy with little temperature change.\0"
-"Mostly clear with little temperature change.\0"
-"Increasing clouds with little temperature change. Precipitation possible within 12 hrs.\0"
-"Mostly clear with little temperature change.\0"
-"Partly cloudy with little temperature change.\0"
-"Mostly clear with little temperature change.\0"
-"Increasing clouds and warmer. Precipitation possible within 24 hrs.\0"
-"Mostly clear and warmer. Increasing winds.\0"
-"Partly cloudy with little temperature change.\0"
-"Mostly clear with little temperature change.\0"
-"Increasing clouds and warmer. Precipitation possible within 12 hrs. Increasing winds.\0"
-"Mostly clear and warmer. Increasing winds.\0"
-"Increasing clouds and warmer.\0"
-"Partly cloudy with little temperature change.\0"
-"Mostly clear with little temperature change.\0"
-"Increasing clouds and warmer. Precipitation possible within 12 hrs. Increasing winds.\0"
-"Mostly clear and warmer. Increasing winds.\0"
-"Increasing clouds and warmer.\0"
-"Partly cloudy with little temperature change.\0"
-"Mostly clear with little temperature change.\0"
-"Increasing clouds and warmer. Precipitation possible within 12 hrs. Increasing winds.\0"
-"Partly cloudy with little temperature change.\0"
-"Mostly clear with little temperature change.\0"
-"Mostly clear and warmer. Precipitation possible within 48 hrs.\0"
-"Mostly clear and warmer.\0"
-"Partly cloudy with little temperature change.\0"
-"Mostly clear with little temperature change.\0"
-"Increasing clouds with little temperature change. Precipitation possible within 24 to 48 hrs.\0"
-"Increasing clouds with little temperature change.\0"
-"Partly cloudy with little temperature change.\0"
-"Mostly clear with little temperature change.\0"
-"Increasing clouds and warmer. Precipitation possible within 12 to 24 hrs.\0"
-"Partly cloudy with little temperature change.\0"
-"Mostly clear with little temperature change.\0"
-"Increasing clouds and warmer. Precipitation possible within 12 to 24 hrs. Windy.\0"
-"Partly cloudy with little temperature change.\0"
-"Mostly clear with little temperature change.\0"
-"Increasing clouds and warmer. Precipitation possible within 12 to 24 hrs. Windy.\0"
-"Partly cloudy with little temperature change.\0"
-"Mostly clear with little temperature change.\0"
-"Increasing clouds and warmer. Precipitation possible within 6 to 12 hrs.\0"
-"Partly cloudy with little temperature change.\0"
-"Mostly clear with little temperature change.\0"
-"Increasing clouds and warmer. Precipitation possible within 6 to 12 hrs. Windy.\0"
-"Partly cloudy with little temperature change.\0"
-"Mostly clear with little temperature change.\0"
-"Increasing clouds and warmer. Precipitation possible within 12 to 24 hrs. Windy.\0"
-"Partly cloudy with little temperature change.\0"
-"Mostly clear with little temperature change.\0"
-"Increasing clouds and warmer. Precipitation possible within 12 hrs.\0"
-"Partly cloudy with little temperature change.\0"
-"Mostly clear with little temperature change.\0"
-"Increasing clouds and warmer. Precipitation likely.\0"
-"clearing and cooler. Precipitation ending within 6 hrs.\0"
-"Partly cloudy with little temperature change.\0"
-"clearing and cooler. Precipitation ending within 6 hrs.\0"
-"Mostly clear with little temperature change.\0"
-"Clearing and cooler. Precipitation ending within 6 hrs.\0"
-"Partly cloudy and cooler.\0"
-"Partly cloudy with little temperature change.\0"
-"Mostly clear and cooler.\0"
-"clearing and cooler. Precipitation ending within 6 hrs.\0"
-"Mostly clear with little temperature change.\0"
-"Clearing and cooler. Precipitation ending within 6 hrs.\0"
-"Mostly clear and cooler.\0"
-"Partly cloudy with little temperature change.\0"
-"Mostly clear with little temperature change.\0"
-"Increasing clouds with little temperature change. Precipitation possible within 24 hrs.\0"
-"Mostly cloudy and cooler. Precipitation continuing.\0"
-"Partly cloudy with little temperature change.\0"
-"Mostly clear with little temperature change.\0"
-"Mostly cloudy and cooler. Precipitation likely.\0"
-"Mostly cloudy with little temperature change. Precipitation continuing.\0"
-"Mostly cloudy with little temperature change. Precipitation likely.\0"
-"Partly cloudy with little temperature change.\0"
-"Mostly clear with little temperature change.\0"
-"Increasing clouds and cooler. Precipitation possible and windy within 6 hrs.\0"
-"Increasing clouds with little temperature change. Precipitation possible and windy within 6 hrs.\0"
-"Mostly cloudy and cooler. Precipitation continuing. Increasing winds.\0"
-"Partly cloudy with little temperature change.\0"
-"Mostly clear with little temperature change.\0"
-"Mostly cloudy and cooler. Precipitation likely. Increasing winds.\0"
-"Mostly cloudy with little temperature change. Precipitation continuing. Increasing winds.\0"
-"Mostly cloudy with little temperature change. Precipitation likely. Increasing winds.\0"
-"Partly cloudy with little temperature change.\0"
-"Mostly clear with little temperature change.\0"
-"Increasing clouds and cooler. Precipitation possible within 12 to 24 hrs. Possible wind shift to the W, NW, or N.\0"
-"Increasing clouds with little temperature change. Precipitation possible within 12 to 24 hrs. Possible wind shift to the W, NW, or N.\0"
-"Partly cloudy with little temperature change.\0"
-"Mostly clear with little temperature change.\0"
-"Increasing clouds and cooler. Precipitation possible within 6 hrs. Possible wind shift to the W, NW, or N.\0"
-"Increasing clouds with little temperature change. Precipitation possible within 6 hrs. Possible wind shift to the W, NW, or N.\0"
-"Mostly cloudy and cooler. Precipitation ending within 12 hrs. Possible wind shift to the W, NW, or N.\0"
-"Mostly cloudy and cooler. Possible wind shift to the W, NW, or N.\0"
-"Mostly cloudy with little temperature change. Precipitation ending within 12 hrs. Possible wind shift to the W, NW, or N.\0"
-"Mostly cloudy with little temperature change. Possible wind shift to the W, NW, or N.\0"
-"Mostly cloudy and cooler. Precipitation ending within 12 hrs. Possible wind shift to the W, NW, or N.\0"
-"Partly cloudy with little temperature change.\0"
-"Mostly clear with little temperature change.\0"
-"Mostly cloudy and cooler. Precipitation possible within 24 hrs. Possible wind shift to the W, NW, or N.\0"
-"Mostly cloudy with little temperature change. Precipitation ending within 12 hrs. Possible wind shift to the W, NW, or N.\0"
-"Mostly cloudy with little temperature change. Precipitation possible within 24 hrs. Possible wind shift to the W, NW, or N.\0"
-"clearing, cooler and windy. Precipitation ending within 6 hrs.\0"
-"clearing, cooler and windy.\0"
-"Mostly cloudy and cooler. Precipitation ending within 6 hrs. Windy with possible wind shift to the W, NW, or N.\0"
-"Mostly cloudy and cooler. Windy with possible wind shift to the W, NW, or N.\0"
-"clearing, cooler and windy.\0"
-"Partly cloudy with little temperature change.\0"
-"Mostly clear with little temperature change.\0"
-"Mostly cloudy with little temperature change. Precipitation possible within 12 hrs. Windy.\0"
-"Partly cloudy with little temperature change.\0"
-"Mostly clear with little temperature change.\0"
-"Increasing clouds and cooler. Precipitation possible within 12 hrs., possibly heavy at times. Windy.\0"
-"Mostly cloudy and cooler. Precipitation ending within 6 hrs. Windy.\0"
-"Partly cloudy with little temperature change.\0"
-"Mostly clear with little temperature change.\0"
-"Mostly cloudy and cooler. Precipitation possible within 12 hrs. Windy.\0"
-"Mostly cloudy and cooler. Precipitation ending in 12 to 24 hrs.\0"
-"Mostly cloudy and cooler.\0"
-"Mostly cloudy and cooler. Precipitation continuing, possible heavy at times. Windy.\0"
-"Partly cloudy with little temperature change.\0"
-"Mostly clear with little temperature change.\0"
-"Mostly cloudy and cooler. Precipitation possible within 6 to 12 hrs. Windy.\0"
-"Mostly cloudy with little temperature change. Precipitation continuing, possibly heavy at times. Windy.\0"
-"Partly cloudy with little temperature change.\0"
-"Mostly clear with little temperature change.\0"
-"Mostly cloudy with little temperature change. Precipitation possible within 6 to 12 hrs. Windy.\0"
-"Partly cloudy with little temperature change.\0"
-"Mostly clear with little temperature change.\0"
-"Increasing clouds with little temperature change. Precipitation possible within 12 hrs., possibly heavy at times. Windy.\0"
-"Mostly cloudy and cooler. Windy.\0"
-"Mostly cloudy and cooler. Precipitation continuing, possibly heavy at times. Windy.\0"
-"Partly cloudy with little temperature change.\0"
-"Mostly clear with little temperature change.\0"
-"Mostly cloudy and cooler. Precipitation likely, possibly heavy at times. Windy.\0"
-"Mostly cloudy with little temperature change. Precipitation continuing, possibly heavy at times. Windy.\0"
-"Mostly cloudy with little temperature change. Precipitation likely, possibly heavy at times. Windy.\0"
-"Partly cloudy with little temperature change.\0"
-"Mostly clear with little temperature change.\0"
-"Increasing clouds and cooler. Precipitation possible within 6 hrs. Windy.\0"
-"Increasing clouds with little temperature change. Precipitation possible within 6 hrs. windy\0"
-"Increasing clouds and cooler. Precipitation continuing. Windy with possible wind shift to the W, NW, or N.\0"
-"Partly cloudy with little temperature change.\0"
-"Mostly clear with little temperature change.\0"
-"Mostly cloudy and cooler. Precipitation likely. Windy with possible wind shift to the W, NW, or N.\0"
-"Mostly cloudy with little temperature change. Precipitation continuing. Windy with possible wind shift to the W, NW, or N.\0"
-"Mostly cloudy with little temperature change. Precipitation likely. Windy with possible wind shift to the W, NW, or N.\0"
-"Increasing clouds and cooler. Precipitation possible within 6 hrs. Windy with possible wind shift to the W, NW, or N.\0"
-"Partly cloudy with little temperature change.\0"
-"Mostly clear with little temperature change.\0"
-"Increasing clouds and cooler. Precipitation possible within 6 hrs. Possible wind shift to the W, NW, or N.\0"
-"Increasing clouds with little temperature change. Precipitation possible within 6 hrs. Windy with possible wind shift to the W, NW, or N.\0"
-"Increasing clouds with little temperature change. Precipitation possible within 6 hrs. Possible wind shift to the W, NW, or N.\0"
-"Partly cloudy with little temperature change.\0"
-"Mostly clear with little temperature change.\0"
-"Increasing clouds and cooler. Precipitation possible within 6 hrs. Windy with possible wind shift to the W, NW, or N.\0"
-"Increasing clouds with little temperature change. Precipitation possible within 6 hrs. Windy with possible wind shift to the W, NW, or N.\0"
-"Partly cloudy with little temperature change.\0"
-"Mostly clear with little temperature change.\0"
-"Increasing clouds and cooler. Precipitation possible within 12 to 24 hrs. Windy with possible wind shift to the W, NW, or N.\0"
-"Increasing clouds with little temperature change. Precipitation possible within 12 to 24 hrs. Windy with possible wind shift to the W, NW, or N.\0"
-"Mostly cloudy and cooler. Precipitation possibly heavy at times and ending within 12 hrs. Windy with possible wind shift to the W, NW, or N.\0"
-"Partly cloudy with little temperature change.\0"
-"Mostly clear with little temperature change.\0"
-"Mostly cloudy and cooler. Precipitation possible within 6 to 12 hrs., possibly heavy at times. Windy with possible wind shift to the W, NW, or N.\0"
-"Mostly cloudy with little temperature change. Precipitation ending within 12 hrs. Windy with possible wind shift to the W, NW, or N.\0"
-"Mostly cloudy with little temperature change. Precipitation possible within 6 to 12 hrs., possibly heavy at times. Windy with possible wind shift to the W, NW, or N.\0"
-"Mostly cloudy and cooler. Precipitation continuing.\0"
-"Partly cloudy with little temperature change.\0"
-"Mostly clear with little temperature change.\0"
-"Mostly cloudy and cooler. Precipitation likely, windy with possible wind shift to the W, NW, or N.\0"
-"Mostly cloudy with little temperature change. Precipitation continuing.\0"
-"Mostly cloudy with little temperature change. Precipitation likely.\0"
-"Partly cloudy with little temperature change.\0"
-"Mostly clear with little temperature change.\0"
-"Mostly cloudy and cooler. Precipitation possible within 12 hours, possibly heavy at times. Windy.\0"
-"FORECAST REQUIRES 3 HRS. OF RECENT DATA\0"
-"Mostly clear and cooler.\0\0" ;
+    "Mostly clear and cooler.\0"
+    "Mostly clear with little temperature change.\0"
+    "Mostly clear for 12 hrs. with little temperature change.\0"
+    "Mostly clear for 12 to 24 hrs. and cooler.\0"
+    "Mostly clear with little temperature change.\0"
+    "Partly cloudy and cooler.\0"
+    "Partly cloudy with little temperature change.\0"
+    "Partly cloudy with little temperature change.\0"
+    "Mostly clear and warmer.\0"
+    "Partly cloudy with little temperature change.\0"
+    "Partly cloudy with little temperature change.\0"
+    "Mostly clear with little temperature change.\0"
+    "Increasing clouds and warmer. Precipitation possible within 24 to 48 hrs.\0"
+    "Partly cloudy with little temperature change.\0"
+    "Mostly clear with little temperature change.\0"
+    "Increasing clouds with little temperature change. Precipitation possible within 24 hrs.\0"
+    "Mostly clear with little temperature change.\0"
+    "Partly cloudy with little temperature change.\0"
+    "Mostly clear with little temperature change.\0"
+    "Increasing clouds with little temperature change. Precipitation possible within 12 hrs.\0"
+    "Mostly clear with little temperature change.\0"
+    "Partly cloudy with little temperature change.\0"
+    "Mostly clear with little temperature change.\0"
+    "Increasing clouds and warmer. Precipitation possible within 24 hrs.\0"
+    "Mostly clear and warmer. Increasing winds.\0"
+    "Partly cloudy with little temperature change.\0"
+    "Mostly clear with little temperature change.\0"
+    "Increasing clouds and warmer. Precipitation possible within 12 hrs. Increasing winds.\0"
+    "Mostly clear and warmer. Increasing winds.\0"
+    "Increasing clouds and warmer.\0"
+    "Partly cloudy with little temperature change.\0"
+    "Mostly clear with little temperature change.\0"
+    "Increasing clouds and warmer. Precipitation possible within 12 hrs. Increasing winds.\0"
+    "Mostly clear and warmer. Increasing winds.\0"
+    "Increasing clouds and warmer.\0"
+    "Partly cloudy with little temperature change.\0"
+    "Mostly clear with little temperature change.\0"
+    "Increasing clouds and warmer. Precipitation possible within 12 hrs. Increasing winds.\0"
+    "Partly cloudy with little temperature change.\0"
+    "Mostly clear with little temperature change.\0"
+    "Mostly clear and warmer. Precipitation possible within 48 hrs.\0"
+    "Mostly clear and warmer.\0"
+    "Partly cloudy with little temperature change.\0"
+    "Mostly clear with little temperature change.\0"
+    "Increasing clouds with little temperature change. Precipitation possible within 24 to 48 hrs.\0"
+    "Increasing clouds with little temperature change.\0"
+    "Partly cloudy with little temperature change.\0"
+    "Mostly clear with little temperature change.\0"
+    "Increasing clouds and warmer. Precipitation possible within 12 to 24 hrs.\0"
+    "Partly cloudy with little temperature change.\0"
+    "Mostly clear with little temperature change.\0"
+    "Increasing clouds and warmer. Precipitation possible within 12 to 24 hrs. Windy.\0"
+    "Partly cloudy with little temperature change.\0"
+    "Mostly clear with little temperature change.\0"
+    "Increasing clouds and warmer. Precipitation possible within 12 to 24 hrs. Windy.\0"
+    "Partly cloudy with little temperature change.\0"
+    "Mostly clear with little temperature change.\0"
+    "Increasing clouds and warmer. Precipitation possible within 6 to 12 hrs.\0"
+    "Partly cloudy with little temperature change.\0"
+    "Mostly clear with little temperature change.\0"
+    "Increasing clouds and warmer. Precipitation possible within 6 to 12 hrs. Windy.\0"
+    "Partly cloudy with little temperature change.\0"
+    "Mostly clear with little temperature change.\0"
+    "Increasing clouds and warmer. Precipitation possible within 12 to 24 hrs. Windy.\0"
+    "Partly cloudy with little temperature change.\0"
+    "Mostly clear with little temperature change.\0"
+    "Increasing clouds and warmer. Precipitation possible within 12 hrs.\0"
+    "Partly cloudy with little temperature change.\0"
+    "Mostly clear with little temperature change.\0"
+    "Increasing clouds and warmer. Precipitation likely.\0"
+    "clearing and cooler. Precipitation ending within 6 hrs.\0"
+    "Partly cloudy with little temperature change.\0"
+    "clearing and cooler. Precipitation ending within 6 hrs.\0"
+    "Mostly clear with little temperature change.\0"
+    "Clearing and cooler. Precipitation ending within 6 hrs.\0"
+    "Partly cloudy and cooler.\0"
+    "Partly cloudy with little temperature change.\0"
+    "Mostly clear and cooler.\0"
+    "clearing and cooler. Precipitation ending within 6 hrs.\0"
+    "Mostly clear with little temperature change.\0"
+    "Clearing and cooler. Precipitation ending within 6 hrs.\0"
+    "Mostly clear and cooler.\0"
+    "Partly cloudy with little temperature change.\0"
+    "Mostly clear with little temperature change.\0"
+    "Increasing clouds with little temperature change. Precipitation possible within 24 hrs.\0"
+    "Mostly cloudy and cooler. Precipitation continuing.\0"
+    "Partly cloudy with little temperature change.\0"
+    "Mostly clear with little temperature change.\0"
+    "Mostly cloudy and cooler. Precipitation likely.\0"
+    "Mostly cloudy with little temperature change. Precipitation continuing.\0"
+    "Mostly cloudy with little temperature change. Precipitation likely.\0"
+    "Partly cloudy with little temperature change.\0"
+    "Mostly clear with little temperature change.\0"
+    "Increasing clouds and cooler. Precipitation possible and windy within 6 hrs.\0"
+    "Increasing clouds with little temperature change. Precipitation possible and windy within 6 hrs.\0"
+    "Mostly cloudy and cooler. Precipitation continuing. Increasing winds.\0"
+    "Partly cloudy with little temperature change.\0"
+    "Mostly clear with little temperature change.\0"
+    "Mostly cloudy and cooler. Precipitation likely. Increasing winds.\0"
+    "Mostly cloudy with little temperature change. Precipitation continuing. Increasing winds.\0"
+    "Mostly cloudy with little temperature change. Precipitation likely. Increasing winds.\0"
+    "Partly cloudy with little temperature change.\0"
+    "Mostly clear with little temperature change.\0"
+    "Increasing clouds and cooler. Precipitation possible within 12 to 24 hrs. Possible wind shift to the W, NW, or N.\0"
+    "Increasing clouds with little temperature change. Precipitation possible within 12 to 24 hrs. Possible wind shift to the W, NW, or N.\0"
+    "Partly cloudy with little temperature change.\0"
+    "Mostly clear with little temperature change.\0"
+    "Increasing clouds and cooler. Precipitation possible within 6 hrs. Possible wind shift to the W, NW, or N.\0"
+    "Increasing clouds with little temperature change. Precipitation possible within 6 hrs. Possible wind shift to the W, NW, or N.\0"
+    "Mostly cloudy and cooler. Precipitation ending within 12 hrs. Possible wind shift to the W, NW, or N.\0"
+    "Mostly cloudy and cooler. Possible wind shift to the W, NW, or N.\0"
+    "Mostly cloudy with little temperature change. Precipitation ending within 12 hrs. Possible wind shift to the W, NW, or N.\0"
+    "Mostly cloudy with little temperature change. Possible wind shift to the W, NW, or N.\0"
+    "Mostly cloudy and cooler. Precipitation ending within 12 hrs. Possible wind shift to the W, NW, or N.\0"
+    "Partly cloudy with little temperature change.\0"
+    "Mostly clear with little temperature change.\0"
+    "Mostly cloudy and cooler. Precipitation possible within 24 hrs. Possible wind shift to the W, NW, or N.\0"
+    "Mostly cloudy with little temperature change. Precipitation ending within 12 hrs. Possible wind shift to the W, NW, or N.\0"
+    "Mostly cloudy with little temperature change. Precipitation possible within 24 hrs. Possible wind shift to the W, NW, or N.\0"
+    "clearing, cooler and windy. Precipitation ending within 6 hrs.\0"
+    "clearing, cooler and windy.\0"
+    "Mostly cloudy and cooler. Precipitation ending within 6 hrs. Windy with possible wind shift to the W, NW, or N.\0"
+    "Mostly cloudy and cooler. Windy with possible wind shift to the W, NW, or N.\0"
+    "clearing, cooler and windy.\0"
+    "Partly cloudy with little temperature change.\0"
+    "Mostly clear with little temperature change.\0"
+    "Mostly cloudy with little temperature change. Precipitation possible within 12 hrs. Windy.\0"
+    "Partly cloudy with little temperature change.\0"
+    "Mostly clear with little temperature change.\0"
+    "Increasing clouds and cooler. Precipitation possible within 12 hrs., possibly heavy at times. Windy.\0"
+    "Mostly cloudy and cooler. Precipitation ending within 6 hrs. Windy.\0"
+    "Partly cloudy with little temperature change.\0"
+    "Mostly clear with little temperature change.\0"
+    "Mostly cloudy and cooler. Precipitation possible within 12 hrs. Windy.\0"
+    "Mostly cloudy and cooler. Precipitation ending in 12 to 24 hrs.\0"
+    "Mostly cloudy and cooler.\0"
+    "Mostly cloudy and cooler. Precipitation continuing, possible heavy at times. Windy.\0"
+    "Partly cloudy with little temperature change.\0"
+    "Mostly clear with little temperature change.\0"
+    "Mostly cloudy and cooler. Precipitation possible within 6 to 12 hrs. Windy.\0"
+    "Mostly cloudy with little temperature change. Precipitation continuing, possibly heavy at times. Windy.\0"
+    "Partly cloudy with little temperature change.\0"
+    "Mostly clear with little temperature change.\0"
+    "Mostly cloudy with little temperature change. Precipitation possible within 6 to 12 hrs. Windy.\0"
+    "Partly cloudy with little temperature change.\0"
+    "Mostly clear with little temperature change.\0"
+    "Increasing clouds with little temperature change. Precipitation possible within 12 hrs., possibly heavy at times. Windy.\0"
+    "Mostly cloudy and cooler. Windy.\0"
+    "Mostly cloudy and cooler. Precipitation continuing, possibly heavy at times. Windy.\0"
+    "Partly cloudy with little temperature change.\0"
+    "Mostly clear with little temperature change.\0"
+    "Mostly cloudy and cooler. Precipitation likely, possibly heavy at times. Windy.\0"
+    "Mostly cloudy with little temperature change. Precipitation continuing, possibly heavy at times. Windy.\0"
+    "Mostly cloudy with little temperature change. Precipitation likely, possibly heavy at times. Windy.\0"
+    "Partly cloudy with little temperature change.\0"
+    "Mostly clear with little temperature change.\0"
+    "Increasing clouds and cooler. Precipitation possible within 6 hrs. Windy.\0"
+    "Increasing clouds with little temperature change. Precipitation possible within 6 hrs. windy\0"
+    "Increasing clouds and cooler. Precipitation continuing. Windy with possible wind shift to the W, NW, or N.\0"
+    "Partly cloudy with little temperature change.\0"
+    "Mostly clear with little temperature change.\0"
+    "Mostly cloudy and cooler. Precipitation likely. Windy with possible wind shift to the W, NW, or N.\0"
+    "Mostly cloudy with little temperature change. Precipitation continuing. Windy with possible wind shift to the W, NW, or N.\0"
+    "Mostly cloudy with little temperature change. Precipitation likely. Windy with possible wind shift to the W, NW, or N.\0"
+    "Increasing clouds and cooler. Precipitation possible within 6 hrs. Windy with possible wind shift to the W, NW, or N.\0"
+    "Partly cloudy with little temperature change.\0"
+    "Mostly clear with little temperature change.\0"
+    "Increasing clouds and cooler. Precipitation possible within 6 hrs. Possible wind shift to the W, NW, or N.\0"
+    "Increasing clouds with little temperature change. Precipitation possible within 6 hrs. Windy with possible wind shift to the W, NW, or N.\0"
+    "Increasing clouds with little temperature change. Precipitation possible within 6 hrs. Possible wind shift to the W, NW, or N.\0"
+    "Partly cloudy with little temperature change.\0"
+    "Mostly clear with little temperature change.\0"
+    "Increasing clouds and cooler. Precipitation possible within 6 hrs. Windy with possible wind shift to the W, NW, or N.\0"
+    "Increasing clouds with little temperature change. Precipitation possible within 6 hrs. Windy with possible wind shift to the W, NW, or N.\0"
+    "Partly cloudy with little temperature change.\0"
+    "Mostly clear with little temperature change.\0"
+    "Increasing clouds and cooler. Precipitation possible within 12 to 24 hrs. Windy with possible wind shift to the W, NW, or N.\0"
+    "Increasing clouds with little temperature change. Precipitation possible within 12 to 24 hrs. Windy with possible wind shift to the W, NW, or N.\0"
+    "Mostly cloudy and cooler. Precipitation possibly heavy at times and ending within 12 hrs. Windy with possible wind shift to the W, NW, or N.\0"
+    "Partly cloudy with little temperature change.\0"
+    "Mostly clear with little temperature change.\0"
+    "Mostly cloudy and cooler. Precipitation possible within 6 to 12 hrs., possibly heavy at times. Windy with possible wind shift to the W, NW, or N.\0"
+    "Mostly cloudy with little temperature change. Precipitation ending within 12 hrs. Windy with possible wind shift to the W, NW, or N.\0"
+    "Mostly cloudy with little temperature change. Precipitation possible within 6 to 12 hrs., possibly heavy at times. Windy with possible wind shift to the W, NW, or N.\0"
+    "Mostly cloudy and cooler. Precipitation continuing.\0"
+    "Partly cloudy with little temperature change.\0"
+    "Mostly clear with little temperature change.\0"
+    "Mostly cloudy and cooler. Precipitation likely, windy with possible wind shift to the W, NW, or N.\0"
+    "Mostly cloudy with little temperature change. Precipitation continuing.\0"
+    "Mostly cloudy with little temperature change. Precipitation likely.\0"
+    "Partly cloudy with little temperature change.\0"
+    "Mostly clear with little temperature change.\0"
+    "Mostly cloudy and cooler. Precipitation possible within 12 hours, possibly heavy at times. Windy.\0"
+    "FORECAST REQUIRES 3 HRS. OF RECENT DATA\0"
+    "Mostly clear and cooler.\0\0" ;
 
 static RTDATA rcd;          /* the one and only v1 real time weather packet */
 static RTDATA2 rcd2;          /* the one and only v2 real time weather packet */
@@ -277,7 +276,7 @@ static void PrintTimeSet(uint8_t *pData, int nOffset, uint8_t yNext, int nSetSiz
 static void PrintByteSet(uint8_t *pData, int nOffset, uint8_t yNext, int nSetSize);
 static void PrintBarSet(uint8_t *pData, int nOffset, uint8_t yNext, int nSetSize);
 static void PrintRainRateSet(uint8_t *pData, int nOffset, uint8_t yNext,
-            int nSetSize);
+                             int nSetSize);
 static void PrintDate(uint16_t wDate);
 static void PrintTempSet24(uint8_t *pData, int nOffset, uint8_t yNext, int nSub);
 static void PrintTempSet25(uint8_t *pData, int nOffset, uint8_t yNext, int nSub);
@@ -399,9 +398,6 @@ void PrintTime(char *szData)
     printf("{\"name\" : \"%s\", \"value\": \"%s\", \"description\" : \"%s\"}\n", _DATETIME, szBuf, _DESCR_DATETIME);
 
 }
-
-
-
 
 /**
  * Copies the Archive download packet to the static ARCHDOWNLOAD struct.
@@ -567,114 +563,6 @@ void PrintDate(uint16_t wDate)
 
 
 
-/**
- * Prints time references for use in graph axis generations.
- */
-void PrintTimeRef(void)
-{
-    struct tm stm;
-    time_t tt;
-    int i;
-
-    /* 10min reference */
-    printf("%s = ", _TIME_REF_10MIN );
-    for(i = 23; i > -1; i--)
-    {
-        time(&tt);
-        stm = *localtime(&tt);              /* get time now */
-        stm.tm_min = (stm.tm_min/10)*10;    /* round to nearest 10min incr */
-        stm.tm_min -= (10 * i);             /* back by 10 minutes */
-        tt = mktime(&stm);
-        stm = *localtime(&tt);              /* get time again */
-        printf("%s", TimeConvert( (stm.tm_hour * 100)+stm.tm_min) );
-        if(i)
-            printf(",");
-    }
-    printf("\n");
-
-
-    /* 15min reference */
-    printf("%s = ", _TIME_REF_15MIN );
-    for(i = 23; i > -1; i--)
-    {
-        time(&tt);
-        stm = *localtime(&tt);              /* get time now */
-        stm.tm_min = (stm.tm_min/15)*15;    /* round to nearest 15min incr */
-        stm.tm_min -= (15 * i);             /* back by 15 minutes */
-        tt = mktime(&stm);
-        stm = *localtime(&tt);              /* get time again */
-        printf("%s", TimeConvert( (stm.tm_hour * 100)+stm.tm_min) );
-        if(i)
-            printf(",");
-    }
-    printf("\n");
-
-
-
-
-    /* hours reference */
-    printf("%s = ", _TIME_REF_HOURS );
-    for(i = 23; i > -1; i--)
-    {
-        time(&tt);
-        stm = *localtime(&tt);          /* get time now */
-        stm.tm_hour -= i;               /* back by hours */
-        tt = mktime(&stm);
-        stm = *localtime(&tt);          /* get time again */
-        printf("%s", TimeConvert(stm.tm_hour * 100));
-        if(i)
-            printf(",");
-    }
-    printf("\n");
-
-
-    /* days reference */
-    printf("%s = ", _TIME_REF_DAYS);
-    for(i = 24; i; i--)
-    {
-        time(&tt);
-        stm = *localtime(&tt);          /* get time now */
-        stm.tm_mday -= i;               /* back by days */
-        tt = mktime(&stm);
-        stm = *localtime(&tt);          /* get time again */
-        printf("%4d-%02d-%02d", stm.tm_year + 1900, stm.tm_mon+1, stm.tm_mday);
-        if(i > 1)
-            printf(",");
-    }
-    printf("\n");
-
-    /* months reference */
-    printf("%s = ", _TIME_REF_MONTHS);
-    time(&tt);
-    stm = *localtime(&tt);              /* get time now */
-    for(i = 24; i; i--)
-    {
-        printf("%d", stm.tm_mon + 1);
-        stm.tm_mon++;
-        if (stm.tm_mon > 11) stm.tm_mon = 0;
-
-        if(i > 1)
-            printf(",");
-    }
-    printf("\n");
-
-    /* years reference */
-    printf("%s = ", _TIME_REF_YEARS);
-    for(i = 25; i; i--)
-    {
-        time(&tt);
-        stm = *localtime(&tt);          /* get time now */
-        stm.tm_year -= i;               /* back by years */
-        tt = mktime(&stm);
-        stm = *localtime(&tt);          /* get time again */
-        printf("%04d", stm.tm_year + 1900);
-        if(i > 1)
-            printf(",");
-    }
-    printf("\n");
-
-}
-
 
 /**
  * Dumps the real time weather data to stdout in json format.
@@ -711,7 +599,7 @@ void PrintRTData(bool includeLoop2Data)
         default:  printf("\"baro_none\", \"description\" : \"%s\" },\n",  _DESCR_BARO_TREND_IMG);
     }
 
-    
+
     if (includeLoop2Data)
         printf("{\"name\" : \"%s\", \"value\" : %d, \"description\" : \"%s\" },\n", _WIND_CHILL, rcd2.windChill,  _DESCR_WIND_CHILL);
     printf("{\"name\" : \"%s\", \"value\" : %.1f, \"description\" : \"%s\" },\n", _WIND_SPEED, (double)rcd.yWindSpeed*0.44704 ,  _DESCR_WIND_SPEED);
@@ -776,7 +664,7 @@ void PrintRTData(bool includeLoop2Data)
 
     printf("{\"name\" : \"%s\", \"value\" : %0.3f, \"description\" : \"%s\" },\n", _DAY_ET, rcd.wETDay / 1000.0,  _DESCR_DAY_ET);
     printf("{\"name\" : \"%s\", \"value\" : %0.2f, \"description\" : \"%s\" },\n", _MONTH_ET, rcd.wETMonth / 100.0,  _DESCR_MONTH_ET);
-    
+
     printf("{\"name\" : \"%st\", \"value\" : %d, \"description\" : \"%s\" },\n", _XMIT_BATT, rcd.yXmitBatt,  _DESCR_XMIT_BATT);
     printf("{\"name\" : \"%s\", \"value\" : %.1f, \"description\" : \"%s\" },\n", _BATT_VOLTAGE, ((rcd.wBattLevel * 300)/512)/100.0,  _DESCR_BATT_VOLTAGE);
 
@@ -830,7 +718,7 @@ void PrintHLData(void)
     printf("{\"name\" : \"%s\", \"value\" : [%d,%d], \"description\" : \"%s\" },\n",         _DEW_LO_DAY,   hld.wDewLoDay, hld.wDewHiDay, _DESCR_DEW_LO_DAY );
     printf("{\"name\" : \"%s\", \"value\" : [%d,%d], \"description\" : \"%s\" },\n",         _DEW_LO_MONTH, hld.wDewLoMonth, hld.wDewHiMonth, _DESCR_DEW_LO_MONTH );
     printf("{\"name\" : \"%s\", \"value\" : [%d,%d], \"description\" : \"%s\" },\n",         _DEW_LO_YEAR,  hld.wDewLoYear, hld.wDewHiYear, _DESCR_DEW_LO_YEAR );
-    
+
     printf("{\"name\" : \"%s\", \"value\" : [\"none\",\"%s\"], \"description\" : \"%s\" },\n", _HEAT_HI_TIME, TimeConvert(hld.wHeatHiTime), _DESCR_HEAT_HI_TIME );
     printf("{\"name\" : \"%s\", \"value\" : [null,%d], \"description\" : \"%s\" },\n",         _HEAT_HI_DAY,   hld.wHeatHiDay, _DESCR_HEAT_HI_DAY );
     printf("{\"name\" : \"%s\", \"value\" : [null,%d], \"description\" : \"%s\" },\n",         _HEAT_HI_MONTH, hld.wHeatHiMonth, _DESCR_HEAT_HI_MONTH );
@@ -864,586 +752,6 @@ void PrintHLData(void)
     printf("{\"name\" : \"%s\", \"value\" : [null,%.2f], \"description\" : \"%s\" },\n", _RAIN_RATE_HI_MONTH, hld.wRainHiMonth / 100.0 *25.4, _DESCR_RAIN_RATE_HI_MONTH );
     printf("{\"name\" : \"%s\", \"value\" : [null,%.2f], \"description\" : \"%s\" },\n", _RAIN_RATE_HI_YEAR, hld.wRainHiYear / 100.0 *25.4, _DESCR_RAIN_RATE_HI_YEAR );
 
-}
-
-
-/**
- * Dumps the graphics sets to stdout.
- *
- * @param pData Pointer to string containing the data print print
- */
-void PrintGDData(uint8_t * pData)
-{
-    PrintTimeRef();                 /* Print reference times */
-
-    /* inside temp by hour, last 24 */
-    printf("%s = ", _IN_TEMP_BY_HOURS);
-    PrintTempSet24(pData, TEMP_IN_HOUR, *(pData + NEXT_HOUR_PTR), 90);
-
-    /* inside temp highs by day, last 24 */
-    printf("%s = ", _IN_TEMP_HI_BY_DAYS);
-    PrintTempSet24(pData, TEMP_IN_DAY_HIGHS, *(pData + NEXT_DAY_PTR), 90);
-
-    /* inside temp highs by day, time, last 24 */
-    printf("%s = ", _IN_TEMP_HI_BY_DAYS_TIME);
-    PrintTimeSet(pData, TEMP_IN_DAY_HIGH_TIMES, *(pData + NEXT_DAY_PTR), 24);
-
-    /* inside temp lows by day, last 24 */
-    printf("%s = ", _IN_TEMP_LO_BY_DAYS);
-    PrintTempSet24(pData, TEMP_IN_DAY_LOWS, *(pData + NEXT_DAY_PTR), 90);
-
-    /* inside temp lows by day by time, last 24 */
-    printf("%s = ", _IN_TEMP_LO_BY_DAYS_TIME);
-    PrintTimeSet(pData, TEMP_IN_DAY_LOW_TIMES, *(pData + NEXT_DAY_PTR), 24);
-
-    /* inside temp highs by month, last 25 */
-    printf("%s = ", _IN_TEMP_HI_BY_MONTHS);
-    PrintTempSet25(pData, TEMP_IN_MONTH_HIGHS, *(pData + NEXT_MONTH_PTR), 90);
-
-    /* inside temp lows by month, last 25 */
-    printf("%s = ", _IN_TEMP_LO_BY_MONTHS);
-    PrintTempSet25(pData, TEMP_IN_MONTH_LOWS, *(pData + NEXT_MONTH_PTR), 90);
-
-    /* temp by hour, last 24 */
-    printf("%s = ", _TEMP_BY_HOURS);
-    PrintTempSet24(pData, TEMP_OUT_HOUR, *(pData + NEXT_HOUR_PTR),  90);
-
-    /* temp highs by day, last 24 */
-    printf("%s = ", _TEMP_HI_BY_DAYS);
-    PrintTempSet24(pData, TEMP_OUT_DAY_HIGHS, *(pData + NEXT_DAY_PTR), 90);
-
-    /* temp highs by day, time, last 24 */
-    printf("%s = ", _TEMP_HI_BY_DAYS_TIME);
-    PrintTimeSet(pData, TEMP_OUT_DAY_HIGH_TIMES, *(pData + NEXT_DAY_PTR), 24);
-
-    /* temp lows by day, last 24 */
-    printf("%s = ", _TEMP_LO_BY_DAYS);
-    PrintTempSet24(pData, TEMP_OUT_DAY_LOWS, *(pData + NEXT_DAY_PTR), 90);
-
-    /* temp lows by day by time, last 24 */
-    printf("%s = ", _TEMP_LO_BY_DAYS_TIME);
-    PrintTimeSet(pData, TEMP_OUT_DAY_LOW_TIMES, *(pData + NEXT_DAY_PTR), 24);
-
-    /* temp highs by month, last 24 */
-    printf("%s = ", _TEMP_HI_BY_MONTHS);
-    PrintTempSet25(pData, TEMP_OUT_MONTH_HIGHS, *(pData + NEXT_MONTH_PTR), 90);
-
-    /* temp lows by month, last 24 */
-    printf("%s = ", _TEMP_LO_BY_MONTHS);
-    PrintTempSet25(pData, TEMP_OUT_MONTH_LOWS, *(pData + NEXT_MONTH_PTR), 90);
-
-    /* dew point by hour, last 24 */
-    printf("%s = ", _DEW_BY_HOURS);
-    PrintTempSet24(pData, DEW_HOUR, *(pData + NEXT_HOUR_PTR), 120);
-
-    /* dew point highs by day, last 24 */
-    printf("%s = ", _DEW_HI_BY_DAYS);
-    PrintTempSet24(pData, DEW_DAY_HIGHS, *(pData + NEXT_DAY_PTR), 120);
-
-    /* dew point highs by day, time, last 24 */
-    printf("%s = ", _DEW_HI_BY_DAYS_TIME);
-    PrintTimeSet(pData, DEW_DAY_HIGH_TIMES, *(pData + NEXT_DAY_PTR), 24);
-
-    /* dew point lows by day, last 24 */
-    printf("%s = ", _DEW_LO_BY_DAYS);
-    PrintTempSet24(pData, DEW_DAY_LOWS, *(pData + NEXT_DAY_PTR), 120);
-
-    /* dew point lows by day, time, last 24 */
-    printf("%s = ", _DEW_LO_BY_DAYS_TIME);
-    PrintTimeSet(pData, DEW_DAY_LOW_TIMES, *(pData + NEXT_DAY_PTR), 24);
-
-    /* dew point highs by month, last 25 */
-    printf("%s = ", _DEW_HI_BY_MONTHS);
-    PrintTempSet25(pData, DEW_MONTH_HIGHS, *(pData + NEXT_MONTH_PTR), 120);
-
-    /* dew point lows by month, last 25 */
-    printf("%s = ",  _DEW_LO_BY_MONTHS);
-    PrintTempSet25(pData, DEW_MONTH_LOWS, *(pData + NEXT_MONTH_PTR), 120);
-
-    /* wind chill by hour, last 24 */
-    printf("%s = ", _CHILL_LO_BY_HOURS);
-    PrintTempSet24(pData, CHILL_HOUR, *(pData + NEXT_HOUR_PTR), 120);
-
-    /* wind chill lows by day, last 24 */
-    printf("%s = ", _CHILL_LO_BY_DAYS);
-    PrintTempSet24(pData, CHILL_DAY_LOWS, *(pData + NEXT_DAY_PTR), 120);
-
-    /* wind chill lows by day, time, last 24 */
-    printf("%s = ", _CHILL_LO_BY_DAYS_TIME);
-    PrintTimeSet(pData, CHILL_DAY_LOW_TIMES, *(pData + NEXT_DAY_PTR), 24);
-
-    /* wind chill lows by month, last 25 */
-    printf("%s = ", _CHILL_LO_BY_MONTHS);
-    PrintTempSet25(pData, CHILL_MONTH_LOWS, *(pData + NEXT_MONTH_PTR), 120);
-
-    /* heat index by hour, last 24 */
-    printf("%s = ", _HEAT_HI_BY_HOURS);
-    PrintTempSet24(pData, HEAT_HOUR, *(pData + NEXT_HOUR_PTR), 90);
-
-    /* heat index lows by day, last 24 */
-    printf("%s = ", _HEAT_HI_BY_DAYS);
-    PrintTempSet24(pData, HEAT_DAY_HIGHS, *(pData + NEXT_DAY_PTR), 90);
-
-    /* heat index highs by day, time, last 24 */
-    printf("%s = ", _HEAT_HI_BY_DAYS_TIME);
-    PrintTimeSet(pData, HEAT_DAY_HIGH_TIMES, *(pData + NEXT_DAY_PTR), 24);
-
-    /* heat index by month, last 25 */
-    printf("%s = ", _HEAT_HI_BY_MONTHS);
-    PrintTempSet25(pData, HEAT_MONTH_HIGHS, *(pData + NEXT_MONTH_PTR), 90);
-
-    /* Inside Humidity by hour, last 24 */
-    printf("%s = ", _IN_HUM_BY_HOURS);
-    PrintByteSet(pData, HUM_IN_HOUR, *(pData + NEXT_HOUR_PTR), 24);
-
-    /* Inside Humidity highs by day, last 24 */
-    printf("%s = ", _IN_HUM_HI_BY_DAYS);
-    PrintByteSet(pData, HUM_IN_DAY_HIGHS, *(pData + NEXT_DAY_PTR), 24);
-
-    /* Inside Humidity highs by day, time, last 24 */
-    printf("%s = ", _IN_HUM_HI_BY_DAYS_TIME);
-    PrintTimeSet(pData, HUM_IN_DAY_HIGH_TIMES, *(pData + NEXT_DAY_PTR), 24);
-
-    /* Inside Humidity lows by day, last 24 */
-    printf("%s = ", _IN_HUM_LO_BY_DAYS);
-    PrintByteSet(pData, HUM_IN_DAY_LOWS, *(pData + NEXT_DAY_PTR), 24);
-
-    /* Inside Humidity lows by day, time, last 24 */
-    printf("%s = ", _IN_HUM_LO_BY_DAYS_TIME);
-    PrintTimeSet(pData, HUM_IN_DAY_LOW_TIMES, *(pData + NEXT_DAY_PTR), 24);
-
-    /* Inside Humidity highs by month, last 24 */
-    printf("%s = ", _IN_HUM_HI_BY_MONTHS);
-    PrintByteSet(pData, HUM_IN_MONTH_HIGHS, *(pData + NEXT_MONTH_PTR), 25);
-
-    /* Inside Humidity lows by month, last 24 */
-    printf("%s = ", _IN_HUM_LO_BY_MONTHS);
-    PrintByteSet(pData, HUM_IN_MONTH_LOWS, *(pData + NEXT_MONTH_PTR), 25);
-
-    /* Humidity by hour, last 24 */
-    printf("%s = ", _HUM_BY_HOURS);
-    PrintByteSet(pData, HUM_OUT_HOUR, *(pData + NEXT_HOUR_PTR), 24);
-
-    /* Humidity highs by day, last 24 */
-    printf("%s = ", _HUM_HI_BY_DAYS);
-    PrintByteSet(pData, HUM_OUT_DAY_HIGHS, *(pData + NEXT_DAY_PTR), 24);
-
-    /* Humidity highs by day, time, last 24 */
-    printf("%s = ", _HUM_HI_BY_DAYS_TIME);
-    PrintTimeSet(pData, HUM_OUT_DAY_HIGH_TIMES, *(pData + NEXT_DAY_PTR), 24);
-
-    /* Humidity lows by day, last 24 */
-    printf("%s = ", _HUM_LO_BY_DAYS);
-    PrintTimeSet(pData, HUM_OUT_DAY_LOWS, *(pData + NEXT_DAY_PTR), 24);
-
-    /* Humidity lows by day, time, last 24 */
-    printf("%s = ", _HUM_LO_BY_DAYS_TIME);
-    PrintTimeSet(pData, HUM_OUT_DAY_LOW_TIMES, *(pData + NEXT_DAY_PTR), 24);
-
-    /* Humidity highs by month, last 24 */
-    printf("%s = ", _HUM_HI_BY_MONTHS);
-    PrintByteSet(pData, HUM_OUT_MONTH_HIGHS, *(pData + NEXT_MONTH_PTR), 25);
-
-    /* Humidity lows by month, last 24 */
-    printf("%s = ", _HUM_LO_BY_MONTHS);
-    PrintByteSet(pData, HUM_OUT_MONTH_LOWS, *(pData + NEXT_MONTH_PTR), 25);
-
-    /* Barometer 15 min increments, last 24 */
-    printf("%s = ", _BAR_BY_15MIN);
-    PrintBarSet(pData, BAR_15_MIN, *(pData + NEXT_15MIN_PTR), 24);
-
-    /* Barometer by hour, last 24 */
-    printf("%s = ", _BAR_BY_HOURS);
-    PrintBarSet(pData, BAR_HOUR, *(pData + NEXT_HOUR_PTR), 24);
-
-    /* Barometer highs by day, last 24 */
-    printf("%s = ", _BAR_HI_BY_DAYS);
-    PrintBarSet(pData, BAR_DAY_HIGHS, *(pData + NEXT_DAY_PTR), 24);
-
-    /* Barometer highs by day, time, last 24 */
-    printf("%s = ", _BAR_HI_BY_DAYS_TIME);
-    PrintTimeSet(pData, BAR_DAY_HIGH_TIMES, *(pData + NEXT_DAY_PTR), 24);
-
-    /* Barometer lows by day, last 24 */
-    printf("%s = ", _BAR_LO_BY_DAYS);
-    PrintBarSet(pData, BAR_DAY_LOWS, *(pData + NEXT_DAY_PTR), 24);
-
-    /* Barometer lows by day by time, last 24 */
-    printf("%s = ", _BAR_LO_BY_DAYS_TIME);
-    PrintTimeSet(pData, BAR_DAY_LOW_TIMES, *(pData + NEXT_DAY_PTR), 24);
-
-    /* Barometer highs by month, last 25 */
-    printf("%s = ", _BAR_HI_BY_MONTHS);
-    PrintBarSet(pData, BAR_MONTH_HIGHS, *(pData + NEXT_MONTH_PTR), 25);
-
-    /* Barometer lows by month, last 25 */
-    printf("%s = ", _BAR_LO_BY_MONTHS);
-    PrintBarSet(pData, BAR_MONTH_LOWS, *(pData + NEXT_MONTH_PTR), 25);
-
-    /* Wind speed 10 min averages, last 24 */
-    printf("%s = ", _WIND_AVG_BY_10MIN);
-    PrintByteSet(pData, WIND_SPEED_10_MIN_AVG, *(pData + NEXT_10MIN_PTR), 24);
-
-    /* Wind speed average by hour, last 24 */
-    printf("%s = ", _WIND_AVG_BY_HOURS);
-    PrintByteSet(pData, WIND_SPEED_HOUR_AVG, *(pData + NEXT_HOUR_PTR), 24);
-
-    /* Wind speed highs by day, last 24 */
-    printf("%s = ", _WIND_HI_BY_DAYS);
-    PrintByteSet(pData, WIND_SPEED_DAY_HIGHS, *(pData + NEXT_DAY_PTR), 24);
-
-    /* Wind speed highs by day, time, last 24 */
-    printf("%s = ", _WIND_HI_BY_DAYS_TIME);
-    PrintTimeSet(pData, WIND_SPEED_DAY_HIGH_TIMES, *(pData + NEXT_DAY_PTR), 24);
-
-    /* Wind speed highs by month, last 25 */
-    printf("%s = ", _WIND_HI_BY_MONTHS);
-    PrintByteSet(pData, WIND_SPEED_MONTH_HIGHS, *(pData + NEXT_MONTH_PTR), 25);
-
-    /* Wind speed highs by year, last 25 */
-    printf("%s = ", _WIND_HI_BY_YEARS);
-    PrintByteSet(pData, WIND_SPEED_YEAR_HIGHS, *(pData + NEXT_YEAR_PTR), 25);
-
-    /* Wind direction by hour, last 24 */
-    printf("%s = ", _WIND_DIR_BY_HOURS);
-    PrintByteSet(pData, WIND_DIR_HOUR, *(pData + NEXT_HOUR_PTR), 24);
-
-    /* Wind direction by day, last 24 */
-    printf("%s = ", _WIND_DIR_BY_DAYS);
-    PrintByteSet(pData, WIND_DIR_DAY, *(pData + NEXT_DAY_PTR), 24);
-
-    /* Wind direction by month, last 25 */
-    printf("%s = ", _WIND_DIR_BY_MONTHS);
-    PrintByteSet(pData, WIND_DIR_MONTH, *(pData + NEXT_MONTH_PTR), 25);
-
-    /* Rain Rate by minute, last 24 */
-    printf("%s = ", _RAIN_RATE_BY_MINUTES);
-    PrintRainRateSet(pData, RAIN_RATE_1_MIN, *(pData + NEXT_10MIN_PTR), 24);
-
-    /* Rain Rate by hour, last 24 */
-    printf("%s = ", _RAIN_RATE_BY_HOURS);
-    PrintRainRateSet(pData, RAIN_RATE_HOUR, *(pData + NEXT_HOUR_PTR), 24);
-
-    /* Rain Rate highs by day, last 24 */
-    printf("%s = ", _RAIN_RATE_HI_BY_DAYS);
-    PrintRainRateSet(pData, RAIN_RATE_DAY_HIGHS, *(pData + NEXT_DAY_PTR), 24);
-
-    /* Rain Rate highs by day time, last 24 */
-    printf("%s = ", _RAIN_RATE_HI_BY_DAYS_TIME);
-    PrintTimeSet(pData, RAIN_RATE_DAY_HIGH_TIMES, *(pData + NEXT_DAY_PTR), 24);
-
-    /* Rain Rate highs by month, last 25 */
-    printf("%s = ", _RAIN_RATE_HI_BY_MONTHS);
-    PrintRainRateSet(pData, RAIN_RATE_MONTH_HIGHS, *(pData + NEXT_MONTH_PTR), 25);
-
-    /* Rain Rate highs by years, last 25 */
-    printf("%s = ", _RAIN_RATE_HI_BY_YEARS);
-    PrintRainRateSet(pData, RAIN_RATE_YEAR_HIGHS, *(pData + NEXT_YEAR_PTR), 25);
-
-    /* Rain by hour, last 24 */
-    printf("%s = ", _RAIN_BY_HOUR);
-    PrintRainRateSet(pData, RAIN_HOUR, *(pData + NEXT_HOUR_PTR), 24);
-
-    /* Rain by storm, last 25 */
-    printf("%s = ", _RAIN_STORMS);
-    PrintRainRateSet(pData, RAIN_STORM, *(pData + NEXT_RAIN_STORM_PTR), 25);
-
-    /* Rain by storm start date, last 25 */
-    printf("%s = ", _RAIN_STORMS_START_DATE);
-    PrintDateSet(pData, RAIN_STORM_START, *(pData + NEXT_RAIN_STORM_PTR), 25);
-
-    /* Rain by storm end date, last 25 */
-    printf("%s = ", _RAIN_STORMS_END_DATE);
-    PrintDateSet(pData, RAIN_STORM_END, *(pData + NEXT_RAIN_STORM_PTR), 25);
-
-    /* Rain by day, last 25 */
-    printf("%s = ", _RAIN_BY_DAY);
-    PrintRainRateSet(pData, RAIN_DAY_TOTAL, *(pData + NEXT_DAY_PTR), 25);
-
-    /* Rain by month, last 25 */
-    printf("%s = ", _RAIN_BY_MONTH);
-    PrintRainRateSet(pData, RAIN_MONTH_TOTAL, *(pData + NEXT_MONTH_PTR), 25);
-
-    /* Rain by year, last 25 */
-    printf("%s = ", _RAIN_BY_YEAR);
-    PrintRainRateSet(pData, RAIN_YEAR_TOTAL, *(pData + NEXT_RAIN_YEAR_PTR), 25);
-
-}
-
-
-
-
-/**
- * Prints a comma separated list of temperature values.
- *
- * @param pData Pointer to string containing data items
- * @param nOffset Offset of first data item
- * @param yNext Number of bytes to move for next data item
- * @param nSub Offset value to subtract off value
- */
-void PrintTempSet24(uint8_t *pData, int nOffset, uint8_t yNext, int nSub)
-{
-    int i, nEntry;
-    int16_t sValue;
-
-    nEntry = nOffset + yNext;
-
-    for(i = 0; i < 24; i++) {           /* get data set in proper order */
-        sValue = *(pData + nEntry);
-        if(sValue != 255) {                 /* force n/a's to empty values */
-            printf("%d", sValue - nSub);
-        }
-        if(++nEntry >= (nOffset + 24))
-            nEntry = nOffset;               /* reset to beginning */
-        if(i < 23)
-            printf(",");                    /* no comma on last entry */
-    }
-    printf("\n");
-
-}
-
-
-
-/**
- * Prints a comma separated list of temperature values from a 25 data set.
- * The Davis EEPROM keeps 24+1 records in some data sets, which the extra one
- * is the current value (month or year). We discard this to keep all graphs
- * consistent at 24. In all cases, you can get this data from the highs/lows
- * data set anyway.
- *
- * @param pData Pointer to string containing data items
- * @param nOffset Offset of first data item
- * @param yNext Number of bytes to move for next data item
- * @param nSub Offset value to subtract off value
- */
-void PrintTempSet25(uint8_t *pData, int nOffset, uint8_t yNext, int nSub)
-{
-    int i, nEntry;
-    int16_t sValue;
-
-    nEntry = nOffset + yNext;
-
-    for(i = 0; i < 25; i++) {           /* get data set in proper order */
-        sValue = *(pData + nEntry);
-        if(++nEntry >= (nOffset + 25))
-            nEntry = nOffset;               /* reset to beginning */
-        else {
-            if(sValue != 255) {             /* force n/a's to be empty values */
-              /* subtract nSub to get temp integer */
-              printf("%d", sValue - nSub);
-            }
-            if(i < 24)
-                printf(",");                /* no comma on last entry */
-        }
-    }
-    printf("\n");
-
-}
-
-
-/**
- * Prints a comma separated list of byte values.
- *
- * @param pData Pointer to string containing data items
- * @param nOffset Offset of first data item
- * @param yNext Number of bytes to move for next data item
- * @param nSetSize Number of items in data set
- */
-void PrintByteSet(uint8_t *pData, int nOffset, uint8_t yNext, int nSetSize)
-{
-    int i, nEntry;
-    uint8_t yValue;
-
-    nEntry = nOffset + yNext;
-
-    for(i = 0; i < nSetSize; i++) {         /* get data set in proper order */
-        yValue = *(pData + nEntry);
-            yValue = 0;
-        if(++nEntry >= (nOffset + nSetSize)) {
-            nEntry = nOffset;               /* reset to beginning */
-            if(nSetSize != 25) {
-                if(yValue != 255) {         /* force n/a's to be empty values */
-                    printf("%d", yValue);
-                }
-                if(i < nSetSize - 1) printf(",");
-            }
-        }
-        else {
-            printf("%d", yValue);
-            if(i < nSetSize - 1)
-                printf(",");                    /* no comma on last entry */
-        }
-    }
-    printf("\n");
-
-}
-
-
-
-/**
- * Prints the comma separated list of times.
- *
- * @param pData Pointer to string containing data items
- * @param nOffset Offset of first data item
- * @param yNext Number of bytes to move for next data item
- * @param nSetSize Number of items in data set
- */
-void PrintTimeSet(uint8_t *pData, int nOffset, uint8_t yNext, int nSetSize)
-{
-    int i, nEntry;
-    uint16_t wValue;
-
-    nEntry = nOffset + (yNext * 2);
-
-    for(i = 0; i < nSetSize; i++) {         /* get data set in proper order */
-        wValue = *( (uint16_t*)(pData + nEntry) );
-        if(wValue != 65535) {               /* print blank for empty entry */
-            printf("%s", TimeConvert(wValue));
-        }
-        nEntry += 2;
-        if(nEntry >= nOffset + (nSetSize*2))
-            nEntry = nOffset;               /* reset to beginning */
-        if(i < nSetSize - 1)
-            printf(",");                    /* no comma on last entry */
-    }
-    printf("\n");
-}
-
-
-
-/**
- * Prints a comma separated list of barometers.
- *
- * @param pData Pointer to string containing data items
- * @param nOffset Offset of first data item
- * @param yNext Number of bytes to move for next data item
- * @param nSetSize Number of items in data set
- */
-void PrintBarSet(uint8_t *pData, int nOffset, uint8_t yNext, int nSetSize)
-{
-    int i, nEntry;
-    uint16_t wValue;
-
-    nEntry = nOffset + (yNext * 2);
-
-    for(i = 0; i < nSetSize; i++) {         /* get data set in proper order */
-        wValue = *( (uint16_t*)(pData + nEntry) );
-        nEntry += 2;
-        if(nEntry >= nOffset + (nSetSize*2)) {
-            nEntry = nOffset;               /* reset to beginning */
-            if(nSetSize != 25) {
-                if(wValue == 65535) {       /* print empty value for illegal entries */
-                    printf("%2.2f", wValue / 1000.0);
-                }
-                if(i < nSetSize - 1) printf(",");
-            }
-
-        }
-        else {
-            printf("%2.2f", wValue / 1000.0);
-            if(i < nSetSize - 1)
-                printf(",");                    /* no comma on last entry */
-        }
-    }
-    printf("\n");
-}
-
-
-
-
-
-/**
- * Prints a comma separated list of rain rates.
- *
- * @param pData Pointer to string containing data items
- * @param nOffset Offset of first data item
- * @param yNext Number of bytes to move for next data item
- * @param nSetSize Number of items in data set
- */
-void PrintRainRateSet(uint8_t *pData, int nOffset, uint8_t yNext, int nSetSize)
-{
-    int i, nEntry;
-    uint16_t wValue;
-
-    nEntry = nOffset + (yNext * 2);
-
-    for(i = 0; i < nSetSize; i++) {         /* get data set in proper order */
-        wValue = *( (uint16_t*)(pData + nEntry) );
-        nEntry += 2;
-        if(nEntry >= nOffset + (nSetSize*2)) {
-            nEntry = nOffset;               /* reset to beginning */
-            if(nSetSize != 25) {
-                if(wValue == 65535) {     /* print empty value for illegal entries */
-                    printf("%.2f", wValue / 100.0);
-                }
-                if(i < nSetSize - 1) printf(",");
-            }
-        }
-        else {
-            printf("%.2f", wValue / 100.0);
-            if(i < nSetSize - 1)
-                printf(",");                    /* no comma on last entry */
-        }
-    }
-    printf("\n");
-}
-
-
-
-
-/**
- * Prints a comma separated list of date items.
- *
- * @param pData Pointer to string containing data items
- * @param nOffset Offset of first data item
- * @param yNext Number of bytes to move for next data item
- * @param nSetSize Number of items in data set
- */
-void PrintDateSet(uint8_t *pData, int nOffset, uint8_t yNext, int nSetSize)
-{
-    int i, nEntry;
-    uint16_t wValue;
-
-    nEntry = nOffset + (yNext * 2);
-
-    for(i = 0; i < nSetSize; i++) {         /* get data set in proper order */
-        wValue = *( (uint16_t*)(pData + nEntry) );
-        nEntry += 2;
-        if(nEntry >= nOffset + (nSetSize*2)) {
-            nEntry = nOffset;               /* reset to beginning */
-            if(nSetSize != 25) {
-                PrintDate(wValue);
-                if(i < nSetSize - 1) printf(",");
-            }
-        }
-        else {
-            PrintDate(wValue);
-            if(i < nSetSize - 1)
-                printf(",");                    /* no comma on last entry */
-        }
-    }
-    printf("\n");
-}
-
-
-/**
- * Prints how many racords will be downloaded to stdout
- */
-void PrintDownloadInfo(void)
-{
-  printf("%d pages of records will be sent\n", arcInfo.numberOfPages);
-}
-
-
-/**
- * Returns the number of pages that will be sent by the archive download
- * command (from the details received from the unit)
- *
- * @returns Number of pages to be downloaded
- */
-uint16_t GetNumberOfPages(void)
-{
-  return arcInfo.numberOfPages;
 }
 
 
@@ -1513,7 +821,6 @@ void PrintArchPacket(int maxArcRecords)
     PRINTINT(record->extraTemps[1], 255, true);
     PRINTINT(record->extraTemps[2], 255, true);
 
-
     // Humidity
     PRINTINT(record->outsideHum, 255, true);
     PRINTINT(record->insideHum, 255, true);
@@ -1526,7 +833,7 @@ void PrintArchPacket(int maxArcRecords)
 
     // Barometer and forecast
     PRINTTHOUSANDTHS(record->barometer / 1000.0, 0, true);
-    printf("\"%s\",", ForecastString(record->forecastRule));
+    printf("%s,", ForecastString(record->forecastRule));
 
     // Wind speed
     PRINTINT(record->windSamples, 0, true);
@@ -1563,6 +870,712 @@ void PrintArchPacket(int maxArcRecords)
     printf("\n");
   }
 }
+
+
+
+/**
+ * Dumps the graphics sets to stdout in JSON format.
+ *
+ * @param pData Pointer to string containing the data
+ */
+void PrintGDData(uint8_t * pData)
+{
+
+    printf("{\n"); /* Open JSON*/
+
+    /* Print reference times */
+    PrintTimeRef();
+
+    /* inside temp by hour, last 24 */
+    printf(", \"%s\" : ", _IN_TEMP_BY_HOURS);
+    PrintTempSet24(pData, TEMP_IN_HOUR, *(pData + NEXT_HOUR_PTR), 90);
+
+    /* inside temp highs by day, last 24 */
+    printf(", \"%s\" : ", _IN_TEMP_HI_BY_DAYS);
+    PrintTempSet24(pData, TEMP_IN_DAY_HIGHS, *(pData + NEXT_DAY_PTR), 90);
+
+    /* inside temp highs by day, time, last 24 */
+    printf(", \"%s\" : ", _IN_TEMP_HI_BY_DAYS_TIME);
+    PrintTimeSet(pData, TEMP_IN_DAY_HIGH_TIMES, *(pData + NEXT_DAY_PTR), 24);
+
+    /* inside temp lows by day, last 24 */
+    printf(", \"%s\" : ", _IN_TEMP_LO_BY_DAYS);
+    PrintTempSet24(pData, TEMP_IN_DAY_LOWS, *(pData + NEXT_DAY_PTR), 90);
+
+    /* inside temp lows by day by time, last 24 */
+    printf(", \"%s\" : ", _IN_TEMP_LO_BY_DAYS_TIME);
+    PrintTimeSet(pData, TEMP_IN_DAY_LOW_TIMES, *(pData + NEXT_DAY_PTR), 24);
+
+    /* inside temp highs by month, last 25 */
+    printf(", \"%s\" : ", _IN_TEMP_HI_BY_MONTHS);
+    PrintTempSet25(pData, TEMP_IN_MONTH_HIGHS, *(pData + NEXT_MONTH_PTR), 90);
+
+    /* inside temp lows by month, last 25 */
+    printf(", \"%s\" : ", _IN_TEMP_LO_BY_MONTHS);
+    PrintTempSet25(pData, TEMP_IN_MONTH_LOWS, *(pData + NEXT_MONTH_PTR), 90);
+
+    /* temp by hour, last 24 */
+    printf(", \"%s\" : ", _TEMP_BY_HOURS);
+    PrintTempSet24(pData, TEMP_OUT_HOUR, *(pData + NEXT_HOUR_PTR),  90);
+
+    /* temp highs by day, last 24 */
+    printf(", \"%s\" : ", _TEMP_HI_BY_DAYS);
+    PrintTempSet24(pData, TEMP_OUT_DAY_HIGHS, *(pData + NEXT_DAY_PTR), 90);
+
+    /* temp highs by day, time, last 24 */
+    printf(", \"%s\" : ", _TEMP_HI_BY_DAYS_TIME);
+    PrintTimeSet(pData, TEMP_OUT_DAY_HIGH_TIMES, *(pData + NEXT_DAY_PTR), 24);
+
+    /* temp lows by day, last 24 */
+    printf(", \"%s\" : ", _TEMP_LO_BY_DAYS);
+    PrintTempSet24(pData, TEMP_OUT_DAY_LOWS, *(pData + NEXT_DAY_PTR), 90);
+
+    /* temp lows by day by time, last 24 */
+    printf(", \"%s\" : ", _TEMP_LO_BY_DAYS_TIME);
+    PrintTimeSet(pData, TEMP_OUT_DAY_LOW_TIMES, *(pData + NEXT_DAY_PTR), 24);
+
+    /* temp highs by month, last 24 */
+    printf(", \"%s\" : ", _TEMP_HI_BY_MONTHS);
+    PrintTempSet25(pData, TEMP_OUT_MONTH_HIGHS, *(pData + NEXT_MONTH_PTR), 90);
+
+    /* temp lows by month, last 24 */
+    printf(", \"%s\" : ", _TEMP_LO_BY_MONTHS);
+    PrintTempSet25(pData, TEMP_OUT_MONTH_LOWS, *(pData + NEXT_MONTH_PTR), 90);
+
+    /* dew point by hour, last 24 */
+    printf(", \"%s\" : ", _DEW_BY_HOURS);
+    PrintTempSet24(pData, DEW_HOUR, *(pData + NEXT_HOUR_PTR), 120);
+
+    /* dew point highs by day, last 24 */
+    printf(", \"%s\" : ", _DEW_HI_BY_DAYS);
+    PrintTempSet24(pData, DEW_DAY_HIGHS, *(pData + NEXT_DAY_PTR), 120);
+
+    /* dew point highs by day, time, last 24 */
+    printf(", \"%s\" : ", _DEW_HI_BY_DAYS_TIME);
+    PrintTimeSet(pData, DEW_DAY_HIGH_TIMES, *(pData + NEXT_DAY_PTR), 24);
+
+    /* dew point lows by day, last 24 */
+    printf(", \"%s\" : ", _DEW_LO_BY_DAYS);
+    PrintTempSet24(pData, DEW_DAY_LOWS, *(pData + NEXT_DAY_PTR), 120);
+
+    /* dew point lows by day, time, last 24 */
+    printf(", \"%s\" : ", _DEW_LO_BY_DAYS_TIME);
+    PrintTimeSet(pData, DEW_DAY_LOW_TIMES, *(pData + NEXT_DAY_PTR), 24);
+
+    /* dew point highs by month, last 25 */
+    printf(", \"%s\" : ", _DEW_HI_BY_MONTHS);
+    PrintTempSet25(pData, DEW_MONTH_HIGHS, *(pData + NEXT_MONTH_PTR), 120);
+
+    /* dew point lows by month, last 25 */
+    printf(", \"%s\" : ",  _DEW_LO_BY_MONTHS);
+    PrintTempSet25(pData, DEW_MONTH_LOWS, *(pData + NEXT_MONTH_PTR), 120);
+
+    /* wind chill by hour, last 24 */
+    printf(", \"%s\" : ", _CHILL_LO_BY_HOURS);
+    PrintTempSet24(pData, CHILL_HOUR, *(pData + NEXT_HOUR_PTR), 120);
+
+    /* wind chill lows by day, last 24 */
+    printf(", \"%s\" : ", _CHILL_LO_BY_DAYS);
+    PrintTempSet24(pData, CHILL_DAY_LOWS, *(pData + NEXT_DAY_PTR), 120);
+
+    /* wind chill lows by day, time, last 24 */
+    printf(", \"%s\" : ", _CHILL_LO_BY_DAYS_TIME);
+    PrintTimeSet(pData, CHILL_DAY_LOW_TIMES, *(pData + NEXT_DAY_PTR), 24);
+
+    /* wind chill lows by month, last 25 */
+    printf(", \"%s\" : ", _CHILL_LO_BY_MONTHS);
+    PrintTempSet25(pData, CHILL_MONTH_LOWS, *(pData + NEXT_MONTH_PTR), 120);
+
+    /* heat index by hour, last 24 */
+    printf(", \"%s\" : ", _HEAT_HI_BY_HOURS);
+    PrintTempSet24(pData, HEAT_HOUR, *(pData + NEXT_HOUR_PTR), 90);
+
+    /* heat index lows by day, last 24 */
+    printf(", \"%s\" : ", _HEAT_HI_BY_DAYS);
+    PrintTempSet24(pData, HEAT_DAY_HIGHS, *(pData + NEXT_DAY_PTR), 90);
+
+    /* heat index highs by day, time, last 24 */
+    printf(", \"%s\" : ", _HEAT_HI_BY_DAYS_TIME);
+    PrintTimeSet(pData, HEAT_DAY_HIGH_TIMES, *(pData + NEXT_DAY_PTR), 24);
+
+    /* heat index by month, last 25 */
+    printf(", \"%s\" : ", _HEAT_HI_BY_MONTHS);
+    PrintTempSet25(pData, HEAT_MONTH_HIGHS, *(pData + NEXT_MONTH_PTR), 90);
+
+    /* Inside Humidity by hour, last 24 */
+    printf(", \"%s\" : ", _IN_HUM_BY_HOURS);
+    PrintByteSet(pData, HUM_IN_HOUR, *(pData + NEXT_HOUR_PTR), 24);
+
+    /* Inside Humidity highs by day, last 24 */
+    printf(", \"%s\" : ", _IN_HUM_HI_BY_DAYS);
+    PrintByteSet(pData, HUM_IN_DAY_HIGHS, *(pData + NEXT_DAY_PTR), 24);
+
+    /* Inside Humidity highs by day, time, last 24 */
+    printf(", \"%s\" : ", _IN_HUM_HI_BY_DAYS_TIME);
+    PrintTimeSet(pData, HUM_IN_DAY_HIGH_TIMES, *(pData + NEXT_DAY_PTR), 24);
+
+    /* Inside Humidity lows by day, last 24 */
+    printf(", \"%s\" : ", _IN_HUM_LO_BY_DAYS);
+    PrintByteSet(pData, HUM_IN_DAY_LOWS, *(pData + NEXT_DAY_PTR), 24);
+
+    /* Inside Humidity lows by day, time, last 24 */
+    printf(", \"%s\" : ", _IN_HUM_LO_BY_DAYS_TIME);
+    PrintTimeSet(pData, HUM_IN_DAY_LOW_TIMES, *(pData + NEXT_DAY_PTR), 24);
+
+    /* Inside Humidity highs by month, last 24 */
+    printf(", \"%s\" : ", _IN_HUM_HI_BY_MONTHS);
+    PrintByteSet(pData, HUM_IN_MONTH_HIGHS, *(pData + NEXT_MONTH_PTR), 25);
+
+    /* Inside Humidity lows by month, last 24 */
+    printf(", \"%s\" : ", _IN_HUM_LO_BY_MONTHS);
+    PrintByteSet(pData, HUM_IN_MONTH_LOWS, *(pData + NEXT_MONTH_PTR), 25);
+
+    /* Humidity by hour, last 24 */
+    printf(", \"%s\" : ", _HUM_BY_HOURS);
+    PrintByteSet(pData, HUM_OUT_HOUR, *(pData + NEXT_HOUR_PTR), 24);
+
+    /* Humidity highs by day, last 24 */
+    printf(", \"%s\" : ", _HUM_HI_BY_DAYS);
+    PrintByteSet(pData, HUM_OUT_DAY_HIGHS, *(pData + NEXT_DAY_PTR), 24);
+
+    /* Humidity highs by day, time, last 24 */
+    printf(", \"%s\" : ", _HUM_HI_BY_DAYS_TIME);
+    PrintTimeSet(pData, HUM_OUT_DAY_HIGH_TIMES, *(pData + NEXT_DAY_PTR), 24);
+
+    /* Humidity lows by day, last 24 */
+    printf(", \"%s\" : ", _HUM_LO_BY_DAYS);
+    PrintTimeSet(pData, HUM_OUT_DAY_LOWS, *(pData + NEXT_DAY_PTR), 24);
+
+    /* Humidity lows by day, time, last 24 */
+    printf(", \"%s\" : ", _HUM_LO_BY_DAYS_TIME);
+    PrintTimeSet(pData, HUM_OUT_DAY_LOW_TIMES, *(pData + NEXT_DAY_PTR), 24);
+
+    /* Humidity highs by month, last 24 */
+    printf(", \"%s\" : ", _HUM_HI_BY_MONTHS);
+    PrintByteSet(pData, HUM_OUT_MONTH_HIGHS, *(pData + NEXT_MONTH_PTR), 25);
+
+    /* Humidity lows by month, last 24 */
+    printf(", \"%s\" : ", _HUM_LO_BY_MONTHS);
+    PrintByteSet(pData, HUM_OUT_MONTH_LOWS, *(pData + NEXT_MONTH_PTR), 25);
+
+    /* Barometer 15 min increments, last 24 */
+    printf(", \"%s\" : ", _BAR_BY_15MIN);
+    PrintBarSet(pData, BAR_15_MIN, *(pData + NEXT_15MIN_PTR), 24);
+
+    /* Barometer by hour, last 24 */
+    printf(", \"%s\" : ", _BAR_BY_HOURS);
+    PrintBarSet(pData, BAR_HOUR, *(pData + NEXT_HOUR_PTR), 24);
+
+    /* Barometer highs by day, last 24 */
+    printf(", \"%s\" : ", _BAR_HI_BY_DAYS);
+    PrintBarSet(pData, BAR_DAY_HIGHS, *(pData + NEXT_DAY_PTR), 24);
+
+    /* Barometer highs by day, time, last 24 */
+    printf(", \"%s\" : ", _BAR_HI_BY_DAYS_TIME);
+    PrintTimeSet(pData, BAR_DAY_HIGH_TIMES, *(pData + NEXT_DAY_PTR), 24);
+
+    /* Barometer lows by day, last 24 */
+    printf(", \"%s\" : ", _BAR_LO_BY_DAYS);
+    PrintBarSet(pData, BAR_DAY_LOWS, *(pData + NEXT_DAY_PTR), 24);
+
+    /* Barometer lows by day by time, last 24 */
+    printf(", \"%s\" : ", _BAR_LO_BY_DAYS_TIME);
+    PrintTimeSet(pData, BAR_DAY_LOW_TIMES, *(pData + NEXT_DAY_PTR), 24);
+
+    /* Barometer highs by month, last 25 */
+    printf(", \"%s\" : ", _BAR_HI_BY_MONTHS);
+    PrintBarSet(pData, BAR_MONTH_HIGHS, *(pData + NEXT_MONTH_PTR), 25);
+
+    /* Barometer lows by month, last 25 */
+    printf(", \"%s\" : ", _BAR_LO_BY_MONTHS);
+    PrintBarSet(pData, BAR_MONTH_LOWS, *(pData + NEXT_MONTH_PTR), 25);
+
+    /* Wind speed 10 min averages, last 24 */
+    printf(", \"%s\" : ", _WIND_AVG_BY_10MIN);
+    PrintByteSet(pData, WIND_SPEED_10_MIN_AVG, *(pData + NEXT_10MIN_PTR), 24);
+
+    /* Wind speed average by hour, last 24 */
+    printf(", \"%s\" : ", _WIND_AVG_BY_HOURS);
+    PrintByteSet(pData, WIND_SPEED_HOUR_AVG, *(pData + NEXT_HOUR_PTR), 24);
+
+    /* Wind speed highs by day, last 24 */
+    printf(", \"%s\" : ", _WIND_HI_BY_DAYS);
+    PrintByteSet(pData, WIND_SPEED_DAY_HIGHS, *(pData + NEXT_DAY_PTR), 24);
+
+    /* Wind speed highs by day, time, last 24 */
+    printf(", \"%s\" : ", _WIND_HI_BY_DAYS_TIME);
+    PrintTimeSet(pData, WIND_SPEED_DAY_HIGH_TIMES, *(pData + NEXT_DAY_PTR), 24);
+
+    /* Wind speed highs by month, last 25 */
+    printf(", \"%s\" : ", _WIND_HI_BY_MONTHS);
+    PrintByteSet(pData, WIND_SPEED_MONTH_HIGHS, *(pData + NEXT_MONTH_PTR), 25);
+
+    /* Wind speed highs by year, last 25 */
+    printf(", \"%s\" : ", _WIND_HI_BY_YEARS);
+    PrintByteSet(pData, WIND_SPEED_YEAR_HIGHS, *(pData + NEXT_YEAR_PTR), 25);
+
+    /* Wind direction by hour, last 24 */
+    printf(", \"%s\" : ", _WIND_DIR_BY_HOURS);
+    PrintByteSet(pData, WIND_DIR_HOUR, *(pData + NEXT_HOUR_PTR), 24);
+
+    /* Wind direction by day, last 24 */
+    printf(", \"%s\" : ", _WIND_DIR_BY_DAYS);
+    PrintByteSet(pData, WIND_DIR_DAY, *(pData + NEXT_DAY_PTR), 24);
+
+    /* Wind direction by month, last 25 */
+    printf(", \"%s\" : ", _WIND_DIR_BY_MONTHS);
+    PrintByteSet(pData, WIND_DIR_MONTH, *(pData + NEXT_MONTH_PTR), 25);
+
+    /* Rain Rate by minute, last 24 */
+    printf(", \"%s\" : ", _RAIN_RATE_BY_MINUTES);
+    PrintRainRateSet(pData, RAIN_RATE_1_MIN, *(pData + NEXT_10MIN_PTR), 24);
+
+    /* Rain Rate by hour, last 24 */
+    printf(", \"%s\" : ", _RAIN_RATE_BY_HOURS);
+    PrintRainRateSet(pData, RAIN_RATE_HOUR, *(pData + NEXT_HOUR_PTR), 24);
+
+    /* Rain Rate highs by day, last 24 */
+    printf(", \"%s\" : ", _RAIN_RATE_HI_BY_DAYS);
+    PrintRainRateSet(pData, RAIN_RATE_DAY_HIGHS, *(pData + NEXT_DAY_PTR), 24);
+
+    /* Rain Rate highs by day time, last 24 */
+    printf(", \"%s\" : ", _RAIN_RATE_HI_BY_DAYS_TIME);
+    PrintTimeSet(pData, RAIN_RATE_DAY_HIGH_TIMES, *(pData + NEXT_DAY_PTR), 24);
+
+    /* Rain Rate highs by month, last 25 */
+    printf(", \"%s\" : ", _RAIN_RATE_HI_BY_MONTHS);
+    PrintRainRateSet(pData, RAIN_RATE_MONTH_HIGHS, *(pData + NEXT_MONTH_PTR), 25);
+
+    /* Rain Rate highs by years, last 25 */
+    printf(", \"%s\" : ", _RAIN_RATE_HI_BY_YEARS);
+    PrintRainRateSet(pData, RAIN_RATE_YEAR_HIGHS, *(pData + NEXT_YEAR_PTR), 25);
+
+    /* Rain by hour, last 24 */
+    printf(", \"%s\" : ", _RAIN_BY_HOUR);
+    PrintRainRateSet(pData, RAIN_HOUR, *(pData + NEXT_HOUR_PTR), 24);
+
+    /* Rain by storm, last 25 */
+    printf(", \"%s\" : ", _RAIN_STORMS);
+    PrintRainRateSet(pData, RAIN_STORM, *(pData + NEXT_RAIN_STORM_PTR), 25);
+
+    /* Rain by storm start date, last 25 */
+    printf(", \"%s\" : ", _RAIN_STORMS_START_DATE);
+    PrintDateSet(pData, RAIN_STORM_START, *(pData + NEXT_RAIN_STORM_PTR), 25);
+
+    /* Rain by storm end date, last 25 */
+    printf(", \"%s\" : ", _RAIN_STORMS_END_DATE);
+    PrintDateSet(pData, RAIN_STORM_END, *(pData + NEXT_RAIN_STORM_PTR), 25);
+
+    /* Rain by day, last 25 */
+    printf(", \"%s\" : ", _RAIN_BY_DAY);
+    PrintRainRateSet(pData, RAIN_DAY_TOTAL, *(pData + NEXT_DAY_PTR), 25);
+
+    /* Rain by month, last 25 */
+    printf(", \"%s\" : ", _RAIN_BY_MONTH);
+    PrintRainRateSet(pData, RAIN_MONTH_TOTAL, *(pData + NEXT_MONTH_PTR), 25);
+
+    /* Rain by year, last 25 */
+    printf(", \"%s\" : ", _RAIN_BY_YEAR);
+    PrintRainRateSet(pData, RAIN_YEAR_TOTAL, *(pData + NEXT_RAIN_YEAR_PTR), 25);
+
+    printf("}\n"); /* Close JSON */
+
+}
+
+
+/**
+ * Prints time references for use in graph axis generations.
+ */
+void PrintTimeRef(void)
+{
+    struct tm stm;
+    time_t tt;
+    int i;
+
+    /* 10min reference */
+    printf("\"%s\" : [", _TIME_REF_10MIN );
+    for(i = 23; i > -1; i--)
+    {
+        time(&tt);
+        stm = *localtime(&tt);              /* get time now */
+        stm.tm_min = (stm.tm_min/10)*10;    /* round to nearest 10min incr */
+        stm.tm_min -= (10 * i);             /* back by 10 minutes */
+        tt = mktime(&stm);
+        stm = *localtime(&tt);              /* get time again */
+        printf("%s", TimeConvert( (stm.tm_hour * 100)+stm.tm_min) );
+        if(i)
+            printf(",");
+    }
+    printf("], \n");
+
+
+    /* 15min reference */
+    printf("\"%s\" : [", _TIME_REF_15MIN );
+    for(i = 23; i > -1; i--)
+    {
+        time(&tt);
+        stm = *localtime(&tt);              /* get time now */
+        stm.tm_min = (stm.tm_min/15)*15;    /* round to nearest 15min incr */
+        stm.tm_min -= (15 * i);             /* back by 15 minutes */
+        tt = mktime(&stm);
+        stm = *localtime(&tt);              /* get time again */
+        printf("%s", TimeConvert( (stm.tm_hour * 100)+stm.tm_min) );
+        if(i)
+            printf(",");
+    }
+    printf("], \n");
+
+
+
+
+    /* hours reference */
+    printf("\"%s\" : [", _TIME_REF_HOURS );
+    for(i = 23; i > -1; i--)
+    {
+        time(&tt);
+        stm = *localtime(&tt);          /* get time now */
+        stm.tm_hour -= i;               /* back by hours */
+        tt = mktime(&stm);
+        stm = *localtime(&tt);          /* get time again */
+        printf("%s", TimeConvert(stm.tm_hour * 100));
+        if(i)
+            printf(",");
+    }
+    printf("], \n");
+
+
+    /* days reference */
+    printf("\"%s\" : [", _TIME_REF_DAYS);
+    for(i = 24; i; i--)
+    {
+        time(&tt);
+        stm = *localtime(&tt);          /* get time now */
+        stm.tm_mday -= i;               /* back by days */
+        tt = mktime(&stm);
+        stm = *localtime(&tt);          /* get time again */
+        printf("%4d-%02d-%02d", stm.tm_year + 1900, stm.tm_mon+1, stm.tm_mday);
+        if(i > 1)
+            printf(",");
+    }
+    printf("], \n");
+
+    /* months reference */
+    printf("\"%s\" : [", _TIME_REF_MONTHS);
+    time(&tt);
+    stm = *localtime(&tt);              /* get time now */
+    for(i = 24; i; i--)
+    {
+        printf("%d", stm.tm_mon + 1);
+        stm.tm_mon++;
+        if (stm.tm_mon > 11) stm.tm_mon = 0;
+
+        if(i > 1)
+            printf(",");
+    }
+    printf("], \n");
+
+    /* years reference */
+    printf("\"%s\" : [", _TIME_REF_YEARS);
+    for(i = 25; i; i--)
+    {
+        time(&tt);
+        stm = *localtime(&tt);          /* get time now */
+        stm.tm_year -= i;               /* back by years */
+        tt = mktime(&stm);
+        stm = *localtime(&tt);          /* get time again */
+        printf("%04d", stm.tm_year + 1900);
+        if(i > 1)
+            printf(",");
+    }
+    printf("], \n");
+
+}
+
+
+
+/**
+ * Prints a comma separated list of temperature values.
+ *
+ * @param pData Pointer to string containing data items
+ * @param nOffset Offset of first data item
+ * @param yNext Number of bytes to move for next data item
+ * @param nSub Offset value to subtract off value
+ */
+void PrintTempSet24(uint8_t *pData, int nOffset, uint8_t yNext, int nSub)
+{
+    int i, nEntry;
+    int16_t sValue;
+
+    nEntry = nOffset + yNext;
+
+    printf("[");
+    for(i = 0; i < 24; i++) {           /* get data set in proper order */
+        sValue = *(pData + nEntry);
+        if(sValue != 255) {                 /* force n/a's to empty values */
+            printf("%d", sValue - nSub);
+        }
+        if(++nEntry >= (nOffset + 24))
+            nEntry = nOffset;               /* reset to beginning */
+        if(i < 23)
+            printf(",");                    /* no comma on last entry */
+    }
+    printf("]\n");
+
+}
+
+
+
+/**
+ * Prints a comma separated list of temperature values from a 25 data set.
+ * The Davis EEPROM keeps 24+1 records in some data sets, which the extra one
+ * is the current value (month or year). We discard this to keep all graphs
+ * consistent at 24. In all cases, you can get this data from the highs/lows
+ * data set anyway.
+ *
+ * @param pData Pointer to string containing data items
+ * @param nOffset Offset of first data item
+ * @param yNext Number of bytes to move for next data item
+ * @param nSub Offset value to subtract off value
+ */
+void PrintTempSet25(uint8_t *pData, int nOffset, uint8_t yNext, int nSub)
+{
+    int i, nEntry;
+    int16_t sValue;
+
+    nEntry = nOffset + yNext;
+
+    printf("[");
+    for(i = 0; i < 25; i++) {           /* get data set in proper order */
+        sValue = *(pData + nEntry);
+        if(++nEntry >= (nOffset + 25))
+            nEntry = nOffset;               /* reset to beginning */
+        else {
+            if(sValue != 255) {             /* force n/a's to be empty values */
+              /* subtract nSub to get temp integer */
+              printf("%d", sValue - nSub);
+            }
+            if(i < 24)
+                printf(",");                /* no comma on last entry */
+        }
+    }
+    printf("]\n");
+
+}
+
+
+/**
+ * Prints a comma separated list of byte values.
+ *
+ * @param pData Pointer to string containing data items
+ * @param nOffset Offset of first data item
+ * @param yNext Number of bytes to move for next data item
+ * @param nSetSize Number of items in data set
+ */
+void PrintByteSet(uint8_t *pData, int nOffset, uint8_t yNext, int nSetSize)
+{
+    int i, nEntry;
+    uint8_t yValue;
+
+    nEntry = nOffset + yNext;
+
+    printf("[");
+    for(i = 0; i < nSetSize; i++) {         /* get data set in proper order */
+        yValue = *(pData + nEntry);
+            yValue = 0;
+        if(++nEntry >= (nOffset + nSetSize)) {
+            nEntry = nOffset;               /* reset to beginning */
+            if(nSetSize != 25) {
+                if(yValue != 255) {         /* force n/a's to be empty values */
+                    printf("%d", yValue);
+                }
+                if(i < nSetSize - 1) printf(",");
+            }
+        }
+        else {
+            printf("%d", yValue);
+            if(i < nSetSize - 1)
+                printf(",");                    /* no comma on last entry */
+        }
+    }
+    printf("]\n");
+
+}
+
+
+
+/**
+ * Prints the comma separated list of times.
+ *
+ * @param pData Pointer to string containing data items
+ * @param nOffset Offset of first data item
+ * @param yNext Number of bytes to move for next data item
+ * @param nSetSize Number of items in data set
+ */
+void PrintTimeSet(uint8_t *pData, int nOffset, uint8_t yNext, int nSetSize)
+{
+    int i, nEntry;
+    uint16_t wValue;
+
+    nEntry = nOffset + (yNext * 2);
+
+    printf("[");
+    for(i = 0; i < nSetSize; i++) {         /* get data set in proper order */
+        wValue = *( (uint16_t*)(pData + nEntry) );
+        if(wValue != 65535) {               /* print blank for empty entry */
+            printf("%s", TimeConvert(wValue));
+        }
+        nEntry += 2;
+        if(nEntry >= nOffset + (nSetSize*2))
+            nEntry = nOffset;               /* reset to beginning */
+        if(i < nSetSize - 1)
+            printf(",");                    /* no comma on last entry */
+    }
+    printf("]\n");
+}
+
+
+
+/**
+ * Prints a comma separated list of barometers.
+ *
+ * @param pData Pointer to string containing data items
+ * @param nOffset Offset of first data item
+ * @param yNext Number of bytes to move for next data item
+ * @param nSetSize Number of items in data set
+ */
+void PrintBarSet(uint8_t *pData, int nOffset, uint8_t yNext, int nSetSize)
+{
+    int i, nEntry;
+    uint16_t wValue;
+
+    nEntry = nOffset + (yNext * 2);
+
+    printf("[");
+    for(i = 0; i < nSetSize; i++) {         /* get data set in proper order */
+        wValue = *( (uint16_t*)(pData + nEntry) );
+        nEntry += 2;
+        if(nEntry >= nOffset + (nSetSize*2)) {
+            nEntry = nOffset;               /* reset to beginning */
+            if(nSetSize != 25) {
+                if(wValue == 65535) {       /* print empty value for illegal entries */
+                    printf("%2.2f", wValue / 1000.0);
+                }
+                if(i < nSetSize - 1) printf(",");
+            }
+
+        }
+        else {
+            printf("%2.2f", wValue / 1000.0);
+            if(i < nSetSize - 1)
+                printf(",");                    /* no comma on last entry */
+        }
+    }
+    printf("]\n");
+}
+
+
+
+
+
+/**
+ * Prints a comma separated list of rain rates.
+ *
+ * @param pData Pointer to string containing data items
+ * @param nOffset Offset of first data item
+ * @param yNext Number of bytes to move for next data item
+ * @param nSetSize Number of items in data set
+ */
+void PrintRainRateSet(uint8_t *pData, int nOffset, uint8_t yNext, int nSetSize)
+{
+    int i, nEntry;
+    uint16_t wValue;
+
+    nEntry = nOffset + (yNext * 2);
+
+    printf("[");
+    for(i = 0; i < nSetSize; i++) {         /* get data set in proper order */
+        wValue = *( (uint16_t*)(pData + nEntry) );
+        nEntry += 2;
+        if(nEntry >= nOffset + (nSetSize*2)) {
+            nEntry = nOffset;               /* reset to beginning */
+            if(nSetSize != 25) {
+                if(wValue == 65535) {     /* print empty value for illegal entries */
+                    printf("%.2f", wValue / 100.0);
+                }
+                if(i < nSetSize - 1) printf(",");
+            }
+        }
+        else {
+            printf("%.2f", wValue / 100.0);
+            if(i < nSetSize - 1)
+                printf(",");                    /* no comma on last entry */
+        }
+    }
+    printf("]\n");
+
+}
+
+
+
+
+/**
+ * Prints a comma separated list of date items.
+ *
+ * @param pData Pointer to string containing data items
+ * @param nOffset Offset of first data item
+ * @param yNext Number of bytes to move for next data item
+ * @param nSetSize Number of items in data set
+ */
+void PrintDateSet(uint8_t *pData, int nOffset, uint8_t yNext, int nSetSize)
+{
+    int i, nEntry;
+    uint16_t wValue;
+
+    nEntry = nOffset + (yNext * 2);
+
+    printf("[");
+    for(i = 0; i < nSetSize; i++) {         /* get data set in proper order */
+        wValue = *( (uint16_t*)(pData + nEntry) );
+        nEntry += 2;
+        if(nEntry >= nOffset + (nSetSize*2)) {
+            nEntry = nOffset;               /* reset to beginning */
+            if(nSetSize != 25) {
+                PrintDate(wValue);
+                if(i < nSetSize - 1) printf(",");
+            }
+        }
+        else {
+            PrintDate(wValue);
+            if(i < nSetSize - 1)
+                printf(",");                    /* no comma on last entry */
+        }
+    }
+    printf("]\n");
+}
+
+
+/**
+ * Prints how many racords will be downloaded to stdout
+ */
+void PrintDownloadInfo(void)
+{
+  printf("%d pages of records will be sent\n", arcInfo.numberOfPages);
+}
+
+
+/**
+ * Returns the number of pages that will be sent by the archive download
+ * command (from the details received from the unit)
+ *
+ * @returns Number of pages to be downloaded
+ */
+uint16_t GetNumberOfPages(void)
+{
+  return arcInfo.numberOfPages;
+}
+
+
+
 
 /**
  * Returns the forecast string for the given forecast rule. I used a brute
