@@ -265,7 +265,6 @@ static char szForeStrings[] =
 "FORECAST REQUIRES 3 HRS. OF RECENT DATA\0"
 "Mostly clear and cooler.\0\0" ;
 
-
 static RTDATA rcd;          /* the one and only v1 real time weather packet */
 static RTDATA2 rcd2;          /* the one and only v2 real time weather packet */
 static HLDATA hld;          /* the one and only highs/lows packet */
@@ -284,6 +283,7 @@ static void PrintTempSet24(uint8_t *pData, int nOffset, uint8_t yNext, int nSub)
 static void PrintTempSet25(uint8_t *pData, int nOffset, uint8_t yNext, int nSub);
 static void PrintDateSet(uint8_t *pData, int nOffset, uint8_t yNext, int nSetSize);
 static void PrintTimeRef(void);
+
 
 
 
@@ -393,9 +393,10 @@ void PrintTime(char *szData)
     stm = *localtime(&tt);              /* correct bogus values */
 
     /* change the following line if you don't like the time format */
-    strftime(szBuf, sizeof(szBuf), "%A, %B %d, %Y  %I:%M %p\n"  , &stm);
+    /* strftime(szBuf, sizeof(szBuf), "%A, %B %d, %Y  %I:%M %p\n"  , &stm); */
+    strftime(szBuf, sizeof(szBuf), "%Y-%m-%dT%H:%M:%S"  , &stm);
 
-    printf("DavisTime = %s", szBuf);
+    printf("{\"name\" : \"%s\", \"value\": \"%s\", \"description\" : \"%s\"}\n", _DATETIME, szBuf, _DESCR_DATETIME);
 }
 
 
@@ -506,90 +507,6 @@ char* getWindRose(uint8_t bearing) {
         return "NNW";
 }
 
-/**
- * Dumps the real time weather data to stdout.
- *
- * @param includeLoop2Data Whether or not to include data from LOOP2 packet
- */
-void PrintRTData(bool includeLoop2Data)
-{
-    int16_t i;
-
-    printf("%s = 0x%04x\n", _NEXT_RECORD, rcd.wNextRec );
-    /* 3-hour rolling baro trend */
-    i = rcd.cP;
-    printf("%s = ", _BARO_TREND);
-    switch(i) {
-        case -60: printf("Falling Rapidly\n"); break;
-        case -20: printf("Falling Slowly\n"); break;
-        case 0:   printf("Steady\n"); break;
-        case 20:  printf("Rising Slowly\n"); break;
-        case 60:  printf("Rising Rapidly\n"); break;
-        default:  printf("n/a-%d\n", rcd.cP);
-    }
-    printf("%s = ", _BARO_TREND_IMG);
-    switch(i) {
-        case -60: printf("baro_fr\n"); break;
-        case -20: printf("baro_fs\n"); break;
-        case 0:   printf("baro_s\n"); break;
-        case 20:  printf("baro_rs\n"); break;
-        case 60:  printf("baro_rr\n"); break;
-        default:  printf("baro_none\n");
-    }
-    printf("%s = %2.2f\n", _BARO_CURR, rcd.wBarometer / 1000.0 );
-    printf("%s = %.1f\n", _INSIDE_TEMP, ((int16_t)rcd.wInsideTemp) / 10.0 );
-    printf("%s = %d\n", _INSIDE_HUM, rcd.yInsideHum );
-    printf("%s = %.1f\n", _OUTSIDE_TEMP, ((int16_t)rcd.wOutsideTemp) / 10.0 );
-    printf("%s = %d\n", _WIND_SPEED, rcd.yWindSpeed );
-    if (includeLoop2Data) {
-      printf("%s = %.1f\n", _WIND_AVG_SPEED, (double)rcd2.avgWindSpd10m / 10.0 );
-    } else {
-      printf("%s = %d\n", _WIND_AVG_SPEED, rcd.yAvgWindSpeed );
-    }
-    if (includeLoop2Data) printf("%s = %.1f\n", _WIND_2M_AVG_SPEED, (double)rcd2.avgWindSpd2m / 10.0 );
-    printf("%s = %d\n", _WIND_DIR, rcd.wWindDir );
-    printf("%s = %s\n", _WIND_DIR_ROSE, getWindRose(rcd.wWindDir) );
-    if (includeLoop2Data) printf("%s = %d\n", _WIND_10M_GUST_SPEED, rcd2.windGust10m );
-    if (includeLoop2Data) printf("%s = %d\n", _WIND_10M_GUST_DIR, rcd2.windGust10mDir );
-    if (includeLoop2Data) printf("%s = %s\n", _WIND_10M_GUST_DIR_ROSE, getWindRose(rcd2.windGust10mDir) );
-    printf("%s = %d\n", _OUTSIDE_HUM, rcd.yOutsideHum );
-    printf("%s = %d\n", _RAIN_RATE, rcd.wRainRate );
-    printf("%s = %s\n", _IS_RAINING, rcd.wRainRate ? "yes" : "no");
-    printf("%s = ", _UV_LEVEL);
-    if(rcd.yUVLevel == 0xff)
-        printf("n/a\n");
-    else
-        printf("%.1f\n", rcd.yUVLevel / 10.0 );
-    printf("%s = ", _SOLAR_RAD);
-    if(rcd.wSolarRad == 32767)
-        printf("n/a\n");
-    else
-        printf("%d\n", rcd.wSolarRad );
-    if (includeLoop2Data) printf("%s = %d\n", _HEAT_INDEX, rcd2.heatIndex );
-    if (includeLoop2Data) printf("%s = %d\n", _WIND_CHILL, rcd2.windChill );
-    if (includeLoop2Data) printf("%s = %d\n", _THSW_INDEX, rcd2.thswIndex );
-    printf("%s = %.2f\n", _RAIN_STORM, rcd.wStormRain / 100.0);
-    printf("%s = ", _STORM_START_DATE);
-    PrintDate(rcd.wStormStart);
-    printf("\n");
-
-    if (includeLoop2Data) printf("%s = %.2f\n", _RAIN_LAST_15M, rcd2.last15mRain / 100.0);
-    if (includeLoop2Data) printf("%s = %.2f\n", _RAIN_LAST_HOUR, rcd2.lastHourRain / 100.0);
-    printf("%s = %d\n", _DAY_RAIN, rcd.wRainDay);
-    printf("%s = %d\n", _MONTH_RAIN, rcd.wRainMonth);
-    printf("%s = %d\n", _YEAR_RAIN, rcd.wRainYear);
-    printf("%s = %0.3f\n", _DAY_ET, rcd.wETDay / 1000.0);
-    printf("%s = %0.2f\n", _MONTH_ET, rcd.wETMonth / 100.0);
-    printf("%st = %d\n", _XMIT_BATT, rcd.yXmitBatt);
-    printf("%s = %.1f\n", _BATT_VOLTAGE, ((rcd.wBattLevel * 300)/512)/100.0);
-    printf("%s = %d\n", _FORE_ICON, rcd.yForeIcon);
-    printf("%s = %d\n", _FORE_RULE, rcd.yRule);
-    printf("%s = %s\n", _FORE_STRING, ForecastString(rcd.yRule));
-    printf("%s = %s\n", _SUNRISE, TimeConvert(rcd.wSunrise));
-    printf("%s = %s\n", _SUNSET, TimeConvert(rcd.wSunset));
-}
-
-
 
 /**
  * Converts a BCD encoded time value to ascii human readable form. Returns
@@ -609,7 +526,7 @@ char* TimeConvert(uint16_t wTime)
     if ((unsigned)wTime == 0x7fff || (unsigned)wTime == 0xffff)
     {
         /* ignore missing data */
-        sprintf(szBuf, "n/a");
+        sprintf(szBuf, "null");
         return szBuf;
     }
 
@@ -631,7 +548,7 @@ void PrintDate(uint16_t wDate)
     uint16_t w;
 
     if(wDate == 0xffff || wDate == 0) { /* ignore missing data */
-        printf("n/a");
+        printf("null");
         return;
     }
     // Year
@@ -759,97 +676,192 @@ void PrintTimeRef(void)
 
 
 /**
+ * Dumps the real time weather data to stdout.
+ *
+ * @param includeLoop2Data Whether or not to include data from LOOP2 packet
+ */
+void PrintRTData(bool includeLoop2Data)
+{
+    int16_t i;
+
+    printf("{\"name\" : \"%s\", \"value\" : %.1f, \"description\" : \"%s\" },\n", _INSIDE_TEMP,  (((int16_t)rcd.wInsideTemp)  / 10.0 -32)*5/9 ,  _DESCR_INSIDE_TEMP);
+    printf("{\"name\" : \"%s\", \"value\" : %.1f, \"description\" : \"%s\" },\n", _OUTSIDE_TEMP, (((int16_t)rcd.wOutsideTemp) / 10.0 -32)*5/9 ,  _DESCR_OUTSIDE_TEMP);
+
+    printf("{\"name\" : \"%s\", \"value\" : %2.2f, \"description\" : \"%s\" },\n", _BARO_CURR, (rcd.wBarometer / 1000.0)*33.8639 ,  _DESCR_BARO_CURR);
+    /* 3-hour rolling baro trend */
+    i = rcd.cP;
+    printf("{\"name\" : \"%s\", \"value\" : ", _BARO_TREND);
+    switch(i) {
+    case -60: printf("\"Falling Rapidly\", \"description\" : \"%s\" },\n",  _DESCR_BARO_TREND); break;
+        case -20: printf("\"Falling Slowly\", \"description\" : \"%s\" },\n",  _DESCR_BARO_TREND); break;
+        case 0:   printf("\"Steady\", \"description\" : \"%s\" },\n",  _DESCR_BARO_TREND); break;
+        case 20:  printf("\"Rising Slowly\", \"description\" : \"%s\" },\n",  _DESCR_BARO_TREND); break;
+        case 60:  printf("\"Rising Rapidly\", \"description\" : \"%s\" },\n",  _DESCR_BARO_TREND); break;
+        default:  printf("\"n/a-%d\", \"description\" : \"%s\" },\n", rcd.cP,  _DESCR_BARO_TREND);
+    }
+
+    printf("{\"name\" : \"%s\", \"value\" : ", _BARO_TREND_IMG);
+    switch(i) {
+    case -60: printf("\"baro_fr\", \"description\" : \"%s\" },\n",  _DESCR_BARO_TREND_IMG); break;
+        case -20: printf("\"baro_fs\", \"description\" : \"%s\" },\n",  _DESCR_BARO_TREND_IMG); break;
+        case 0:   printf("\"baro_s\", \"description\" : \"%s\" },\n",  _DESCR_BARO_TREND_IMG); break;
+        case 20:  printf("\"baro_rs\", \"description\" : \"%s\" },\n",  _DESCR_BARO_TREND_IMG); break;
+        case 60:  printf("\"baro_rr\", \"description\" : \"%s\" },\n",  _DESCR_BARO_TREND_IMG); break;
+        default:  printf("\"baro_none\", \"description\" : \"%s\" },\n",  _DESCR_BARO_TREND_IMG);
+    }
+
+    
+    if (includeLoop2Data)
+        printf("{\"name\" : \"%s\", \"value\" : %d, \"description\" : \"%s\" },\n", _WIND_CHILL, rcd2.windChill,  _DESCR_WIND_CHILL);
+    printf("{\"name\" : \"%s\", \"value\" : %.1f, \"description\" : \"%s\" },\n", _WIND_SPEED, (double)rcd.yWindSpeed*0.44704 ,  _DESCR_WIND_SPEED);
+    printf("{\"name\" : \"%s\", \"value\" : %d, \"description\" : \"%s\" },\n", _WIND_DIR, rcd.wWindDir,  _DESCR_WIND_DIR );
+    printf("{\"name\" : \"%s\", \"value\" : \"%s\", \"description\" : \"%s\" },\n", _WIND_DIR_ROSE, getWindRose(rcd.wWindDir) ,  _DESCR_WIND_DIR_ROSE);
+    if (includeLoop2Data)
+        printf("{\"name\" : \"%s\", \"value\" : %.1f, \"description\" : \"%s\" },\n", _WIND_10M_GUST_SPEED, (double)rcd2.windGust10m*0.44704 ,  _DESCR_WIND_10M_GUST_SPEED);
+    if (includeLoop2Data)
+        printf("{\"name\" : \"%s\", \"value\" : %d, \"description\" : \"%s\" },\n", _WIND_10M_GUST_DIR, rcd2.windGust10mDir ,  _DESCR_WIND_10M_GUST_DIR);
+    if (includeLoop2Data)
+        printf("{\"name\" : \"%s\", \"value\" : \"%s\", \"description\" : \"%s\" },\n", _WIND_10M_GUST_DIR_ROSE, getWindRose(rcd2.windGust10mDir) ,  _DESCR_WIND_10M_GUST_DIR_ROSE);
+    if (includeLoop2Data) {
+        printf("{\"name\" : \"%s\", \"value\" : %.1f, \"description\" : \"%s\" },\n", _WIND_AVG_SPEED, ((double)rcd2.avgWindSpd10m / 10.0)*0.44704 ,  _DESCR_WIND_AVG_SPEED);
+    } else {
+        printf("{\"name\" : \"%s\", \"value\" : %.1f, \"description\" : \"%s\" },\n", _WIND_AVG_SPEED, (double)rcd.yAvgWindSpeed*0.44704 , _WIND_AVG_SPEED);
+    }
+    if (includeLoop2Data)
+        printf("{\"name\" : \"%s\", \"value\" : %.1f, \"description\" : \"%s\" },\n", _WIND_2M_AVG_SPEED, ((double)rcd2.avgWindSpd2m / 10.0)*0.44704,  _DESCR_WIND_2M_AVG_SPEED );
+
+    printf("{\"name\" : \"%s\", \"value\" : %d, \"description\" : \"%s\" },\n", _INSIDE_HUM, rcd.yInsideHum,  _DESCR_INSIDE_HUM );
+    printf("{\"name\" : \"%s\", \"value\" : %d, \"description\" : \"%s\" },\n", _OUTSIDE_HUM, rcd.yOutsideHum ,  _DESCR_OUTSIDE_HUM);
+
+    if (includeLoop2Data)
+        printf("{\"name\" : \"%s\", \"value\" : %d, \"description\" : \"%s\" },\n", _HEAT_INDEX, rcd2.heatIndex,  _DESCR_HEAT_INDEX);
+
+    printf("{\"name\" : \"%s\", \"value\" : ", _SOLAR_RAD);
+    if(rcd.wSolarRad == 32767)
+        printf("null, \"description\" : \"%s\" },\n",  _DESCR_SOLAR_RAD);
+    else
+        printf("%d, \"description\" : \"%s\" },\n", rcd.wSolarRad,  _DESCR_SOLAR_RAD );
+
+    printf("{\"name\" : \"%s\", \"value\" : ", _UV_LEVEL);
+    if(rcd.yUVLevel == 0xff)
+        printf("null, \"description\" : \"%s\" },\n",  _DESCR_UV_LEVEL);
+    else
+        printf("%.1f, \"description\" : \"%s\" },\n", rcd.yUVLevel / 10.0,  _DESCR_UV_LEVEL );
+
+    printf("{\"name\" : \"%s\", \"value\" : %.2f, \"description\" : \"%s\" },\n", _RAIN_RATE, rcd.wRainRate *25.4,  _DESCR_RAIN_RATE );
+    printf("{\"name\" : \"%s\", \"value\" : %.2f, \"description\" : \"%s\" },\n", _RAIN_STORM, rcd.wStormRain / 100.0 *25.4 ,  _DESCR_RAIN_STORM);
+    if (includeLoop2Data)
+        printf("{\"name\" : \"%s\", \"value\" : %.2f, \"description\" : \"%s\" },\n", _RAIN_LAST_15M, rcd2.last15mRain / 100.0 *25.4  ,  _DESCR_RAIN_LAST_15M);
+    if (includeLoop2Data)
+        printf("{\"name\" : \"%s\", \"value\" : %.2f, \"description\" : \"%s\" },\n", _RAIN_LAST_HOUR, rcd2.lastHourRain / 100.0 *25.4,  _DESCR_RAIN_LAST_HOUR);
+    printf("{\"name\" : \"%s\", \"value\" : %.2f, \"description\" : \"%s\" },\n", _DAY_RAIN, rcd.wRainDay*25.4,  _DESCR_DAY_RAIN);
+    printf("{\"name\" : \"%s\", \"value\" : %.2f, \"description\" : \"%s\" },\n", _MONTH_RAIN, rcd.wRainMonth*25.4,  _DESCR_MONTH_RAIN);
+    printf("{\"name\" : \"%s\", \"value\" : %.2f, \"description\" : \"%s\" },\n", _YEAR_RAIN, rcd.wRainYear*25.4,  _DESCR_YEAR_RAIN);
+    printf("{\"name\" : \"%s\", \"value\" : %s, \"description\" : \"%s\" },\n", _IS_RAINING, rcd.wRainRate ? "true" : "false",  _DESCR_IS_RAINING);
+
+    printf("{\"name\" : \"%s\", \"value\" : \"%s\", \"description\" : \"%s\" },\n", _SUNRISE, TimeConvert(rcd.wSunrise),  _DESCR_SUNRISE);
+    printf("{\"name\" : \"%s\", \"value\" : \"%s\", \"description\" : \"%s\" },\n", _SUNSET, TimeConvert(rcd.wSunset),  _DESCR_SUNSET);
+
+    printf("{\"name\" : \"%s\", \"value\" : %d, \"description\" : \"%s\" },\n", _FORE_ICON, rcd.yForeIcon,  _DESCR_FORE_ICON);
+    printf("{\"name\" : \"%s\", \"value\" : %d, \"description\" : \"%s\" },\n", _FORE_RULE, rcd.yRule    ,  _DESCR_FORE_RULE);
+    printf("{\"name\" : \"%s\", \"value\" : \"%s\", \"description\" : \"%s\" },\n", _FORE_STRING, ForecastString(rcd.yRule),  _DESCR_FORE_STRING);
+
+    if (includeLoop2Data)
+        printf("{\"name\" : \"%s\", \"value\" : %d, \"description\" : \"%s\" },\n", _THSW_INDEX, rcd2.thswIndex,  _DESCR_THSW_INDEX);
+
+    printf("{\"name\" : \"%s\", \"value\" : ", _STORM_START_DATE);
+    PrintDate(rcd.wStormStart);
+    printf(", \"description\" : \"%s\" },\n",  _DESCR_STORM_START_DATE);
+
+    printf("{\"name\" : \"%s\", \"value\" : %0.3f, \"description\" : \"%s\" },\n", _DAY_ET, rcd.wETDay / 1000.0,  _DESCR_DAY_ET);
+    printf("{\"name\" : \"%s\", \"value\" : %0.2f, \"description\" : \"%s\" },\n", _MONTH_ET, rcd.wETMonth / 100.0,  _DESCR_MONTH_ET);
+    
+    printf("{\"name\" : \"%st\", \"value\" : %d, \"description\" : \"%s\" },\n", _XMIT_BATT, rcd.yXmitBatt,  _DESCR_XMIT_BATT);
+    printf("{\"name\" : \"%s\", \"value\" : %.1f, \"description\" : \"%s\" },\n", _BATT_VOLTAGE, ((rcd.wBattLevel * 300)/512)/100.0,  _DESCR_BATT_VOLTAGE);
+
+    printf("{\"name\" : \"%s\", \"value\" : \"0x%04x\", \"description\" : \"Next db record\" },\n", _NEXT_RECORD, rcd.wNextRec );
+
+}
+
+
+/**
  * Dumps the highs/lows weather data to stdout.
  */
 void PrintHLData(void)
 {
-    printf("%s = %2.2f\n", _BARO_LO_DAY, hld.wBaroLoDay / 1000.0 );
-    printf("%s = %2.2f\n", _BARO_HI_DAY, hld.wBaroHiDay / 1000.0 );
-    printf("%s = %2.2f\n", _BARO_LO_MONTH, hld.wBaroLoMonth / 1000.0 );
-    printf("%s = %2.2f\n", _BARO_HI_MONTH, hld.wBaroHiMonth / 1000.0 );
-    printf("%s = %2.2f\n", _BARO_LO_YEAR, hld.wBaroLoYear / 1000.0 );
-    printf("%s = %2.2f\n", _BARO_HI_YEAR, hld.wBaroHiYear / 1000.0 );
-    printf("%s = %s\n", _BARO_LO_TIME, TimeConvert(hld.wBaroLoTime));
-    printf("%s = %s\n", _BARO_HI_TIME, TimeConvert(hld.wBaroHiTime));
 
-    printf("%s = %d\n", _WIND_HI_DAY, hld.yWindHiDay );
-    printf("%s = %s\n", _WIND_HI_TIME ,TimeConvert(hld.wWindHiTime));
-    printf("%s = %d\n", _WIND_HI_MONTH, hld.yWindHiMonth );
-    printf("%s = %d\n", _WIND_HI_YEAR, hld.yWindHiYear );
+    printf("{\"name\" : \"%s\", \"value\" : [\"%s\",\"%s\"], \"description\" : \"%s\" },\n", _IN_TEMP_LO_TIME, TimeConvert(hld.wInTempLoTime),TimeConvert(hld.wInTempHiTime), _DESCR_IN_TEMP_LO_TIME );
+    printf("{\"name\" : \"%s\", \"value\" : [%.1f,%.1f], \"description\" : \"%s\" },\n",     _IN_TEMP_LO_DAY,   (hld.wInTempLoDay   / 10.0 -32)*5/9, (hld.wInTempHiDay   / 10.0 -32)*5/9, _DESCR_IN_TEMP_LO_DAY );
+    printf("{\"name\" : \"%s\", \"value\" : [%.1f,%.1f], \"description\" : \"%s\" },\n",     _IN_TEMP_LO_MONTH, (hld.wInTempLoMonth / 10.0 -32)*5/9, (hld.wInTempHiMonth / 10.0 -32)*5/9, _DESCR_IN_TEMP_LO_MONTH );
+    printf("{\"name\" : \"%s\", \"value\" : [%.1f,%.1f], \"description\" : \"%s\" },\n",     _IN_TEMP_LO_YEAR,  (hld.wInTempLoYear  / 10.0 -32)*5/9, (hld.wInTempHiYear  / 10.0 -32)*5/9, _DESCR_IN_TEMP_LO_YEAR );
 
-    printf("%s = %.1f\n", _IN_TEMP_HI_DAY, hld.wInTempHiDay / 10.0 );
-    printf("%s = %.1f\n", _IN_TEMP_LO_DAY, hld.wInTempLoDay / 10.0 );
-    printf("%s = %s\n", _IN_TEMP_HI_TIME, TimeConvert(hld.wInTempHiTime));
-    printf("%s = %s\n", _IN_TEMP_LO_TIME, TimeConvert(hld.wInTempLoTime));
-    printf("%s = %.1f\n", _IN_TEMP_LO_MONTH, hld.wInTempLoMonth / 10.0 );
-    printf("%s = %.1f\n", _IN_TEMP_HI_MONTH, hld.wInTempHiMonth / 10.0 );
-    printf("%s = %.1f\n", _IN_TEMP_LO_YEAR, hld.wInTempLoYear / 10.0 );
-    printf("%s = %.1f\n", _IN_TEMP_HI_YEAR, hld.wInTempHiYear / 10.0 );
+    printf("{\"name\" : \"%s\", \"value\" : [\"%s\",\"%s\"], \"description\" : \"%s\" },\n", _TEMP_LO_TIME, TimeConvert(hld.wTempLoTime),TimeConvert(hld.wTempHiTime), _DESCR_TEMP_LO_TIME );
+    printf("{\"name\" : \"%s\", \"value\" : [%.1f,%.1f], \"description\" : \"%s\" },\n",     _TEMP_LO_DAY,   (hld.wTempLoDay   / 10.0 -32)*5/9, (hld.wTempHiDay   / 10.0 -32)*5/9, _DESCR_TEMP_LO_DAY );
+    printf("{\"name\" : \"%s\", \"value\" : [%.1f,%.1f], \"description\" : \"%s\" },\n",     _TEMP_LO_MONTH, (hld.wTempLoMonth / 10.0 -32)*5/9, (hld.wTempHiMonth / 10.0 -32)*5/9, _DESCR_TEMP_LO_MONTH );
+    printf("{\"name\" : \"%s\", \"value\" : [%.1f,%.1f], \"description\" : \"%s\" },\n",     _TEMP_LO_YEAR,  (hld.wTempLoYear  / 10.0 -32)*5/9, (hld.wTempHiYear  / 10.0 -32)*5/9, _DESCR_TEMP_LO_YEAR );
 
-    printf("%s = %d\n", _IN_HUM_HI_DAY, hld.yInHumHiDay );
-    printf("%s = %d\n", _IN_HUM_LO_DAY, hld.yInHumLoDay );
-    printf("%s = %s\n", _IN_HUM_HI_TIME, TimeConvert(hld.wInHumHiTime));
-    printf("%s = %s\n", _IN_HUM_LO_TIME, TimeConvert(hld.wInHumLoTime));
-    printf("%s = %d\n", _IN_HUM_HI_MONTH, hld.yInHumHiMonth );
-    printf("%s = %d\n", _IN_HUM_LO_MONTH, hld.yInHumLoMonth );
-    printf("%s = %d\n", _IN_HUM_HI_YEAR, hld.yInHumHiYear );
-    printf("%s = %d\n", _IN_HUM_LO_YEAR, hld.yInHumLoYear );
+    printf("{\"name\" : \"%s\", \"value\" : [\"%s\",\"%s\"], \"description\" : \"%s\" },\n", _BARO_LO_TIME,  TimeConvert(hld.wBaroLoTime),TimeConvert(hld.wBaroHiTime), _DESCR_BARO_LO_TIME );
+    printf("{\"name\" : \"%s\", \"value\" : [%3.0f,%3.0f], \"description\" : \"%s\" },\n",   _BARO_LO_DAY,   (hld.wBaroLoDay   / 1000.0)*33.8639, (hld.wBaroHiDay   / 1000.0)*33.8639, _DESCR_BARO_LO_DAY );
+    printf("{\"name\" : \"%s\", \"value\" : [%3.0f,%3.0f], \"description\" : \"%s\" },\n",   _BARO_LO_MONTH, (hld.wBaroLoMonth / 1000.0)*33.8639, (hld.wBaroHiMonth / 1000.0)*33.8639, _DESCR_BARO_LO_MONTH );
+    printf("{\"name\" : \"%s\", \"value\" : [%3.0f,%3.0f], \"description\" : \"%s\" },\n",   _BARO_LO_YEAR,  (hld.wBaroLoYear  / 1000.0)*33.8639, (hld.wBaroHiYear  / 1000.0)*33.8639, _DESCR_BARO_LO_YEAR );
 
-    printf("%s = %.1f\n", _TEMP_HI_DAY, hld.wTempHiDay / 10.0 );
-    printf("%s = %.1f\n", _TEMP_LO_DAY, hld.wTempLoDay / 10.0 );
-    printf("%s = %s\n", _TEMP_HI_TIME, TimeConvert(hld.wTempHiTime));
-    printf("%s = %s\n", _TEMP_LO_TIME, TimeConvert(hld.wTempLoTime));
-    printf("%s = %.1f\n", _TEMP_LO_MONTH, hld.wTempLoMonth / 10.0 );
-    printf("%s = %.1f\n", _TEMP_HI_MONTH, hld.wTempHiMonth / 10.0 );
-    printf("%s = %.1f\n", _TEMP_HI_YEAR, hld.wTempHiYear / 10.0 );
-    printf("%s = %.1f\n", _TEMP_LO_YEAR, hld.wTempLoYear / 10.0 );
+    printf("{\"name\" : \"%s\", \"value\" : [\"null\",\"%s\"], \"description\" : \"%s\" },\n", _WIND_HI_TIME, TimeConvert(hld.wWindHiTime), _DESCR_WIND_HI_TIME );
+    printf("{\"name\" : \"%s\", \"value\" : [null,%.2f], \"description\" : \"%s\" },\n",         _WIND_HI_DAY,   hld.yWindHiDay*0.44704 , _DESCR_WIND_HI_DAY );
+    printf("{\"name\" : \"%s\", \"value\" : [null,%.2f], \"description\" : \"%s\" },\n",         _WIND_HI_MONTH, hld.yWindHiMonth*0.44704, _DESCR_WIND_HI_MONTH );
+    printf("{\"name\" : \"%s\", \"value\" : [null,%.2f], \"description\" : \"%s\" },\n",         _WIND_HI_YEAR,  hld.yWindHiYear*0.44704, _DESCR_WIND_HI_YEAR );
 
-    printf("%s = %d\n", _DEW_LO_DAY, hld.wDewLoDay);
-    printf("%s = %d\n", _DEW_HI_DAY, hld.wDewHiDay);
-    printf("%s = %s\n", _DEW_LO_TIME, TimeConvert(hld.wDewLoTime));
-    printf("%s = %s\n", _DEW_HI_TIME, TimeConvert(hld.wDewHiTime));
-    printf("%s = %d\n", _DEW_HI_MONTH, hld.wDewHiMonth);
-    printf("%s = %d\n", _DEW_LO_MONTH, hld.wDewLoMonth);
-    printf("%s = %d\n", _DEW_HI_YEAR, hld.wDewHiYear);
-    printf("%s = %d\n", _DEW_LO_YEAR, hld.wDewLoYear);
+    printf("{\"name\" : \"%s\", \"value\" : [\"%s\",\"null\"], \"description\" : \"%s\" },\n", _CHILL_LO_TIME, TimeConvert(hld.wChillLoTime), _DESCR_CHILL_LO_TIME );
+    printf("{\"name\" : \"%s\", \"value\" : [%d,null], \"description\" : \"%s\" },\n",         _CHILL_LO_DAY,   (hld.wChillLoDay -32)*5/9, _DESCR_CHILL_LO_DAY );
+    printf("{\"name\" : \"%s\", \"value\" : [%d,null], \"description\" : \"%s\" },\n",         _CHILL_LO_MONTH, (hld.wChillLoMonth -32)*5/9,  _DESCR_CHILL_LO_MONTH );
+    printf("{\"name\" : \"%s\", \"value\" : [%d,null], \"description\" : \"%s\" },\n",         _CHILL_LO_YEAR,  (hld.wChillLoYear -32)*5/9,  _DESCR_CHILL_LO_YEAR );
 
-    printf("%s = %d\n", _CHILL_LO_DAY, hld.wChillLoDay);
-    printf("%s = %s\n", _CHILL_LO_TIME, TimeConvert(hld.wChillLoTime));
-    printf("%s = %d\n", _CHILL_LO_MONTH, hld.wChillLoMonth);
-    printf("%s = %d\n", _CHILL_LO_YEAR, hld.wChillLoYear);
+    printf("{\"name\" : \"%s\", \"value\" : [\"%s\",\"%s\"], \"description\" : \"%s\" },\n", _IN_HUM_LO_TIME, TimeConvert(hld.wInHumLoTime), TimeConvert(hld.wInHumHiTime), _DESCR_IN_HUM_LO_TIME );
+    printf("{\"name\" : \"%s\", \"value\" : [%d,%d], \"description\" : \"%s\" },\n",         _IN_HUM_LO_DAY,   hld.yInHumLoDay, hld.yInHumHiDay , _DESCR_IN_HUM_LO_DAY );
+    printf("{\"name\" : \"%s\", \"value\" : [%d,%d], \"description\" : \"%s\" },\n",         _IN_HUM_LO_MONTH, hld.yInHumLoMonth, hld.yInHumHiMonth , _DESCR_IN_HUM_LO_MONTH );
+    printf("{\"name\" : \"%s\", \"value\" : [%d,%d], \"description\" : \"%s\" },\n",         _IN_HUM_LO_YEAR,  hld.yInHumLoYear, hld.yInHumHiYear , _DESCR_IN_HUM_LO_YEAR );
 
-    printf("%s = %d\n", _HEAT_HI_DAY, hld.wHeatHiDay);
-    printf("%s = %s\n", _HEAT_HI_TIME, TimeConvert(hld.wHeatHiTime));
-    printf("%s = %d\n", _HEAT_HI_MONTH, hld.wHeatHiMonth);
-    printf("%s = %d\n", _HEAT_HI_YEAR, hld.wHeatHiYear);
+    printf("{\"name\" : \"%s\", \"value\" : [\"%s\",\"%s\"], \"description\" : \"%s\" },\n", _OUT_HUM_LO_TIME, TimeConvert(hld.wOutHumLoTime), TimeConvert(hld.wOutHumHiTime), _DESCR_OUT_HUM_LO_TIME );
+    printf("{\"name\" : \"%s\", \"value\" : [%d,%d], \"description\" : \"%s\" },\n",         _OUT_HUM_LO_DAY,   hld.yOutHumLoDay, hld.yOutHumHiDay , _DESCR_OUT_HUM_LO_DAY );
+    printf("{\"name\" : \"%s\", \"value\" : [%d,%d], \"description\" : \"%s\" },\n",         _OUT_HUM_LO_MONTH, hld.yOutHumLoMonth, hld.yOutHumHiMonth , _DESCR_OUT_HUM_LO_MONTH );
+    printf("{\"name\" : \"%s\", \"value\" : [%d,%d], \"description\" : \"%s\" },\n",         _OUT_HUM_LO_YEAR,  hld.yOutHumLoYear, hld.yOutHumHiYear , _DESCR_OUT_HUM_LO_YEAR );
 
-    printf("%s = %.1f\n", _SOLAR_HI_DAY, hld.wSolarHiDay / 10.0 );
-    printf("%s = ", _SOLAR_HI_TIME );
+    printf("{\"name\" : \"%s\", \"value\" : [\"%s\",\"%s\"], \"description\" : \"%s\" },\n", _DEW_LO_TIME, TimeConvert(hld.wDewLoTime), TimeConvert(hld.wDewHiTime), _DESCR_DEW_LO_TIME );
+    printf("{\"name\" : \"%s\", \"value\" : [%d,%d], \"description\" : \"%s\" },\n",         _DEW_LO_DAY,   hld.wDewLoDay, hld.wDewHiDay, _DESCR_DEW_LO_DAY );
+    printf("{\"name\" : \"%s\", \"value\" : [%d,%d], \"description\" : \"%s\" },\n",         _DEW_LO_MONTH, hld.wDewLoMonth, hld.wDewHiMonth, _DESCR_DEW_LO_MONTH );
+    printf("{\"name\" : \"%s\", \"value\" : [%d,%d], \"description\" : \"%s\" },\n",         _DEW_LO_YEAR,  hld.wDewLoYear, hld.wDewHiYear, _DESCR_DEW_LO_YEAR );
+    
+    printf("{\"name\" : \"%s\", \"value\" : [\"none\",\"%s\"], \"description\" : \"%s\" },\n", _HEAT_HI_TIME, TimeConvert(hld.wHeatHiTime), _DESCR_HEAT_HI_TIME );
+    printf("{\"name\" : \"%s\", \"value\" : [null,%d], \"description\" : \"%s\" },\n",         _HEAT_HI_DAY,   hld.wHeatHiDay, _DESCR_HEAT_HI_DAY );
+    printf("{\"name\" : \"%s\", \"value\" : [null,%d], \"description\" : \"%s\" },\n",         _HEAT_HI_MONTH, hld.wHeatHiMonth, _DESCR_HEAT_HI_MONTH );
+    printf("{\"name\" : \"%s\", \"value\" : [null,%d], \"description\" : \"%s\" },\n",         _HEAT_HI_YEAR,  hld.wHeatHiYear, _DESCR_HEAT_HI_YEAR );
+
+    printf("{\"name\" : \"%s\", \"value\" : [\"none\",", _SOLAR_HI_TIME );
     if(hld.wSolarHiTime == 65535)
-        printf("n/a\n");
+        printf("\"none\"], \"description\" : \"%s\" },\n", _DESCR_SOLAR_HI_TIME );
     else
-        printf("%s\n", TimeConvert(hld.wSolarHiTime));
-    printf("%s = %.1f\n", _SOLAR_HI_MONTH, hld.wSolarHiMonth / 10.0 );
-    printf("%s = %.1f\n", _SOLAR_HI_YEAR, hld.wSolarHiYear / 10.0 );
+        printf("\"%s\"], \"description\" : \"%s\" },\n", TimeConvert(hld.wSolarHiTime), _DESCR_SOLAR_HI_TIME );
+    printf("{\"name\" : \"%s\", \"value\" : [null,%.1f], \"description\" : \"%s\" },\n", _SOLAR_HI_DAY, hld.wSolarHiDay / 10.0 , _DESCR_SOLAR_HI_DAY );
+    printf("{\"name\" : \"%s\", \"value\" : [null,%.1f], \"description\" : \"%s\" },\n", _SOLAR_HI_MONTH, hld.wSolarHiMonth / 10.0 , _DESCR_SOLAR_HI_MONTH );
+    printf("{\"name\" : \"%s\", \"value\" : [null,%.1f], \"description\" : \"%s\" },\n", _SOLAR_HI_YEAR, hld.wSolarHiYear / 10.0 , _DESCR_SOLAR_HI_YEAR );
 
-    printf("%s = %.1f\n", _UV_HI_DAY, hld.yUVHiDay / 10.0);
-    printf("%s = ", _UV_HI_TIME );
+    printf("{\"name\" : \"%s\", \"value\" : [\"none\",", _UV_HI_TIME );
     if(hld.wUVHiTime == 65535)
-        printf("n/a\n");
+        printf("\"none\"], \"description\" : \"%s\" },\n", _DESCR_UV_HI_TIME );
     else
-        printf("%s\n", TimeConvert(hld.wUVHiTime));
-    printf("%s = %.1f\n", _UV_HI_MONTH, hld.yUVHiMonth / 10.0);
-    printf("%s = %.1f\n", _UV_HI_YEAR, hld.yUVHiYear / 10.0);
+        printf("\"%s\"], \"description\" : \"%s\" },\n", TimeConvert(hld.wUVHiTime), _DESCR_UV_HI_TIME );
+    printf("{\"name\" : \"%s\", \"value\" : [null,%.1f], \"description\" : \"%s\" },\n", _UV_HI_DAY, hld.yUVHiDay / 10.0, _DESCR_UV_HI_DAY );
+    printf("{\"name\" : \"%s\", \"value\" : [null,%.1f], \"description\" : \"%s\" },\n", _UV_HI_MONTH, hld.yUVHiMonth / 10.0, _DESCR_UV_HI_MONTH );
+    printf("{\"name\" : \"%s\", \"value\" : [null,%.1f], \"description\" : \"%s\" },\n", _UV_HI_YEAR, hld.yUVHiYear / 10.0, _DESCR_UV_HI_YEAR );
 
-    printf("%s = %.2f\n", _RAIN_RATE_HI_DAY, hld.wRainHiDay / 100.0);
-    printf("%s = ", _RAIN_RATE_HI_TIME );
+    printf("{\"name\" : \"%s\", \"value\" : [\"none\",", _RAIN_RATE_HI_TIME);
     if(hld.wRainHiTime == 65535)
-        printf("n/a\n");
+        printf("\"none\"], \"description\" : \"%s\" },\n", _DESCR_RAIN_RATE_HI_TIME );
     else
-    printf("%s\n", TimeConvert(hld.wRainHiTime));
-    printf("%s = %.2f\n", _RAIN_RATE_HI_HOUR, hld.wRainHiHour / 100.0);
-    printf("%s = %.2f\n", _RAIN_RATE_HI_MONTH, hld.wRainHiMonth / 100.0);
-    printf("%s = %.2f\n", _RAIN_RATE_HI_YEAR, hld.wRainHiYear / 100.0);
+        printf("\"%s\"], \"description\" : \"%s\" },\n", TimeConvert(hld.wRainHiTime), _DESCR_RAIN_RATE_HI_TIME );
+    printf("{\"name\" : \"%s\", \"value\" : [null,%.2f], \"description\" : \"%s\" },\n", _RAIN_RATE_HI_DAY, hld.wRainHiDay / 100.0 *25.4, _DESCR_RAIN_RATE_HI_DAY );
+    printf("{\"name\" : \"%s\", \"value\" : [null,%.2f], \"description\" : \"%s\" },\n", _RAIN_RATE_HI_HOUR, hld.wRainHiHour / 100.0 *25.4, _DESCR_RAIN_RATE_HI_HOUR );
+    printf("{\"name\" : \"%s\", \"value\" : [null,%.2f], \"description\" : \"%s\" },\n", _RAIN_RATE_HI_MONTH, hld.wRainHiMonth / 100.0 *25.4, _DESCR_RAIN_RATE_HI_MONTH );
+    printf("{\"name\" : \"%s\", \"value\" : [null,%.2f], \"description\" : \"%s\" },\n", _RAIN_RATE_HI_YEAR, hld.wRainHiYear / 100.0 *25.4, _DESCR_RAIN_RATE_HI_YEAR );
 
 }
 
@@ -1440,29 +1452,16 @@ uint16_t GetNumberOfPages(void)
  */
 void PrintArchHeader(void)
 {
-  printf("date,time,");
-  // Temperatures
-  printf("outside temp (°F),outside temp high (°F), outside temp low (°F),insideTemp (°F),");
-  printf("extra temp1 (°F), extra temp2 (°F), extra temp3 (°F),");
-  // Humidity
-  printf("inside humidity (%%),outside humidity (%%),");
-  printf("extra humidity 1 (%%),extra humidity 2 (%%),");
-  // Rainfall
-  printf("rainfall (clicks),highest rain rate (clicks/hr),");
-  // Barometer and forecast
-  printf("barometer (inches Hg),forecast at end of period,");
-  // Wind speed
-  printf("number of wind samples,");
-  printf("average wind speed (mph),prevailing wind direction (°),prevailing wind rose,");
-  printf("highest wind speed (mph),highest wind direction (°),higest wind rose,");
-  // Radiation
-  printf("average solar radiation (W/m^2),maximum solar radiation (W/m^2),");
-  printf("average uv index,max uv,accumulated et (in),");
-  // Leaf
-  printf("leaf temp 1 (°F),leaf temp 2 (°F),leaf wetness 1,leaf wetness 2,");
-  // Soil
-  printf("soil temp 1 (°F),soil temp 2 (°F),soil temp 3 (°F),soil temp 4 (°F),");
-  printf("soil moisture 1 (cb),soil moisture 2 (cb), soil moisture 3 (cb), soil moisture 4 (cb)\n");
+
+    printf("%s,",_DESCR_DATETIME);
+
+    printf("%s,%s,%s,%s,%s,%s,%s,",_DESCR_OUTSIDETEMP,_DESCR_OUTSIDEHIGHTEMP,_DESCR_OUTSIDELOWTEMP,_DESCR_INSIDETEMP,_DESCR_EXTRATEMPS0,_DESCR_EXTRATEMPS1,_DESCR_EXTRATEMPS2);
+
+    printf("%s,%s,%s,%s,%s,%s,%s,%s,",_DESCR_OUTSIDEHUM,_DESCR_INSIDEHUM,_DESCR_EXTRAHUMS1,_DESCR_EXTRAHUMS2,_DESCR_RAINFALL,_DESCR_HIGHESTRAINRA,_DESCR_BAROMETER,_DESCR_FORECASTRULE);
+
+    printf("%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,",_DESCR_WINDSAMPLES,_DESCR_AVGWINDSPD,_DESCR_PREVAILWINDDI,_DESCR_PREVAILWINDROSE,_DESCR_HIGHESTWINDSP,_DESCR_HIGHESTWINDDI,_DESCR_HIGHESTWINDROSE,_DESCR_AVGSOLARRAD,_DESCR_SOLARRADMAX,_DESCR_AVGUVINDEX,_DESCR_UVMAX,_DESCR_ETACCUMULATED);
+
+    printf("%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s\n",_DESCR_LEAFTEMPS0,_DESCR_LEAFTEMPS1,_DESCR_LEAFWETNESS0,_DESCR_LEAFWETNESS1,_DESCR_SOILTEMPS0,_DESCR_SOILTEMPS1,_DESCR_SOILTEMPS2,_DESCR_SOILTEMPS3,_DESCR_SOILMOISTURE0,_DESCR_SOILMOISTURE1,_DESCR_SOILMOISTURE2,_DESCR_SOILMOISTURE3);
 }
 
 

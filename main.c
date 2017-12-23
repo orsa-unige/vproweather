@@ -337,8 +337,19 @@ int main(int argc, char *argv[])
           exit(2);
         }
 
+
+        printf("[\n");                      /* ...json */
+
         GetHLData(szSerBuffer);             /* get data to struct */
         PrintHLData();                      /* ...and to stdout */
+
+        if (runCommand("GETTIME\n", -1, 8, "time", true, true)) {
+            exit(2);
+        }
+        PrintTime(szSerBuffer);             /* ...and to stdout */
+
+        printf("]\n");                      /* ...json */
+
     }
 
 
@@ -366,10 +377,19 @@ int main(int argc, char *argv[])
         if (runCommand("LPS 2 1\n", -1, 99, "real time v2", true, true)) {
           gotV2Data = false;
         } else {
-          GetRT2Data(szSerBuffer);             /* get data to struct */
+          GetRT2Data(szSerBuffer);          /* get data to struct */
         }
 
-        PrintRTData(gotV2Data);                      /* ...and to stdout */
+        printf("[\n");                      /* ...json */
+
+        PrintRTData(gotV2Data);             /* ...and to stdout */
+
+        if (runCommand("GETTIME\n", -1, 8, "time", true, true)) {
+            exit(2);
+        }
+        PrintTime(szSerBuffer);             /* ...and to stdout */
+
+        printf("]\n");                      /* ...json */
     }
 
 
@@ -775,7 +795,7 @@ int runCommand(char* command, int commandLength, int expectedLength, char* dataL
     /* Check received an ACK */
     if (expectingAck) {
         if (szSerBuffer[0] != ACK) {
-          fprintf(stderr, "Didn't get ACK from weather station (got %d bytes)\n", nCnt);
+          fprintf(stderr, "{\"err\" : \"Didn't get ACK from weather station (got %d bytes)\" } \n ] \n ", nCnt);
           return -1;
         } else if (bVerbose) {
           printf("Get ACK reply to command\n");
@@ -801,7 +821,7 @@ int runCommand(char* command, int commandLength, int expectedLength, char* dataL
         }
 
         if(nCnt != totalLength) {
-            fprintf(stderr, "vproweather: Didn't get all data. Try changing delay parameter.\n");
+            fprintf(stderr, "{\"err\" : \"Didn't get all data. Try changing delay parameter.\" } \n ] \n ");
             return -1;
             exit(2);
         }
@@ -809,7 +829,7 @@ int runCommand(char* command, int commandLength, int expectedLength, char* dataL
     if (expectingCrc) {
         if((nCnt = CheckCRC(expectedLength,
                 szSerBuffer + (expectingAck ? 1 : 0)))) {    /* check crc */
-            fprintf(stderr, "vproweather: CRC failure %d.\n", nCnt);
+            fprintf(stderr, "{\"error\" : \"CRC failure %d.\" } \n ] \n", nCnt);
             return -1;
             exit(2);
         }

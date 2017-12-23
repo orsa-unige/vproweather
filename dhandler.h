@@ -38,7 +38,7 @@ extern void GetRT2Data(char *szData);
 extern void GetHLData(char *szData);
 extern void PrintRTData(bool includeLoop2Data);
 extern void PrintHLData(void);
-extern void PrintGDData(uint8_t * pData);
+extern void PrintGDData(uint8_t *pData);
 extern void PrintTime(char *szData);
 extern void PrintDownloadInfo(void);
 extern uint16_t GetNumberOfPages(void);
@@ -471,7 +471,20 @@ typedef struct t_HLDATA
     uint16_t wRainHiYear;    /* 124 Highest Rain Rate this year              */
 
     uint8_t  yExtraLeaf[150];/* 126 Extra/Leaf/Soil Temperatures             */
-    uint8_t  yExtraTemps[80];/* 276 Extra outside temp/Humidities            */
+
+    /* Outside Humidity */
+    uint8_t  yOutHumHiDay;    /* 276 Outside high humidity for the day          */
+    uint8_t  yOutHumLoDay;    /* 277 Outside low humidity for the day           */
+    uint16_t wOutHumHiTime;   /* 278 Outside high humidity time for today       */
+    uint16_t wOutHumLoTime;   /* 280 Outside low humidity time for today        */
+    uint8_t  yOutHumHiMonth;  /* 282 Outside high humidity for the month        */
+    uint8_t  yOutHumLoMonth;  /* 283 Outside low humidity for the month         */
+    uint8_t  yOutHumHiYear;   /* 284 Outside high humidity for the year         */
+    uint8_t  yOutHumLoYear;   /* 285 Outside low humidity for the year          */
+
+    /* uint8_t  yExtraTemps[80];/\* 276 Extra outside temp/Humidities            *\/ */
+    uint8_t  yExtraTemps[70]; /* 286 Extra outside temp/Humidities            */
+
     uint8_t  ySoilMoist[40]; /* 356 Soil Moisture section                    */
     uint8_t  yLeafWet[40];   /* 396 Leaf Wetness section                     */
     uint16_t wUnknown;       /* 436 not documented                           */
