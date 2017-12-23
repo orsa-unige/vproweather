@@ -9,7 +9,6 @@ Developing a custom version using metric system and json output (https://github.
 Metric system and json output are currently suppoted for -x, -l and -t options.
 
 
-
 ```
 vproweather v1.3.5
 https://github.com/bytesnz/vproweather
