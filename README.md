@@ -4,6 +4,12 @@ Initial version written by Joe Jaworski (http://www.joejaworski.com/weather/)
 
 Additions made by Jack Farley (https://github.com/bytesnz/wproweather)
 
+Developing a custom version using metric system and json output (https://github.com/orsa-unige/vproweather/tree/metric-and-json).
+
+Metric system and json output are currently suppoted for -x, -l and -t options.
+
+
+
 ```
 vproweather v1.3.5
 https://github.com/bytesnz/vproweather
@@ -39,116 +45,108 @@ vproweather --verbose --bklite-on /dev/ttyp0
 Turns the LCD backlite On, illuminating the display.
 ```
 
+
+## Get time Example Output 
+```
+{"name" : "datetime", "value": "2017-12-22T16:05:46", "description" : "Date and time of the weather station in ISO-8601 format."}
+```
+
 ## Real Time Example Output
 ```
-rtNextArchiveRecord = 0x0139
-rtBaroTrend = Steady
-rtBaroTrendImg = baro_s
-rtBaroCurr = 30.08
-rtInsideTemp = 80.6
-rtInsideHum = 67
-rtOutsideTemp = 76.9
-rtWindSpeed = 2
-rtWindAvgSpeed = 2.2
-rtWind2mAvgSpeed = 1.8
-rtWindDir = 284
-rtWindDirRose = NNE
-rtWind10mGustMaxSpeed = 5
-rtWind10mGustMaxDir = 267
-rtWind10mGustMaxDirRose = NNW
-rtOutsideHum = 73
-rtRainRate = 0.00
-rtIsRaining = no
-rtUVLevel = 0.0
-rtSolarRad = 65
-rtHeatIndex = 19712
-rtWindChill = 20224
-rtThswIndex = 0
-rtRainStorm = 0.00
-rtStormStartDate = n/a
-rt15mRain = 0.00
-rtHourRain = 389.12
-rtDayRain = 0.00
-rtMonthRain = 0.00
-rtYearRain = 6.77
-rtDayET = 152
-rtMonthET = 87
-rtXmitBattt = 0
-rtBattVoltage = 4.4
-rtForeIcon = 6
-rtForeRule = 44
-rtForecast = Increasing clouds with little temperature change. Precipitation possible within 24 to 48 hrs.
-rtSunrise = 06:12
-rtSunset = 17:57
+[
+{"name" : "rtInsideTemp", "value" : 24.6, "description" : "Current inside temperature in degrees Celsius." },
+{"name" : "rtOutsideTemp", "value" : 1802.6, "description" : "Current outside temperature in degrees Celsius." },
+{"name" : "rtBaroCurr", "value" : 1024.25, "description" : "Current barometer in hPa." },
+{"name" : "rtBaroTrend", "value" : "Falling Slowly", "description" : "3-hour Barometer Trend." },
+{"name" : "rtBaroTrendImg", "value" : "baro_fs", "description" : "Non-whitespace word that can be used for barometer reference" },
+{"name" : "rtWindChill", "value" : -256, "description" : "rtWindChill" },
+{"name" : "rtWindSpeed", "value" : 255, "description" : "Current wind speed in miles per hour." },
+{"name" : "rtWindDir", "value" : 32767, "description" : "Current direction of wind in compass degrees." },
+{"name" : "rtWindDirRose", "value" : "WSW", "description" : "The wind direction in Compass Rose values" },
+{"name" : "rtWind10mGustMaxSpeed", "value" : 255, "description" : "rtWind10mGustMaxSpeed" },
+{"name" : "rtWind10mGustMaxDir", "value" : 65535, "description" : "rtWind10mGustMaxDir" },
+{"name" : "rtWind10mGustMaxDirRose", "value" : "WSW", "description" : "rtWind10mGustMaxDirRose" },
+{"name" : "rtWindAvgSpeed", "value" : 3276.7, "description" : "rtWindAvgSpeed" },
+{"name" : "rtWind2mAvgSpeed", "value" : 3276.7, "description" : "Average wind speed in miles per hour over the last 15 minutes." },
+{"name" : "rtInsideHum", "value" : 23, "description" : "Current inside humidity as a percent." },
+{"name" : "rtOutsideHum", "value" : 255, "description" : "Current outside humidity as a percent." },
+{"name" : "rtHeatIndex", "value" : -256, "description" : "rtHeatIndex" },
+{"name" : "rtSolarRad", "value" : null, "description" : "Current Solar Radiation." },
+{"name" : "rtUVLevel", "value" : null, "description" : "Current UV level. " },
+{"name" : "rtRainRate", "value" : 65535, "description" : "Current rate retrainer in inches per hour." },
+{"name" : "rtRainStorm", "value" : 0.00, "description" : "The amount of rain in inches from the current storm." },
+{"name" : "rt15mRain", "value" : 0.00, "description" : "Total rain so far in inches for last 15 minutes." },
+{"name" : "rtHourRain", "value" : 0.00, "description" : "Total rain so far in inches for last hour." },
+{"name" : "rtDayRain", "value" : 0, "description" : "Total rain so far in inches for today." },
+{"name" : "rtMonthRain", "value" : 324, "description" : "Total rain so far in inches for the month." },
+{"name" : "rtYearRain", "value" : 324, "description" : "Total rain so far in inches for the year." },
+{"name" : "rtIsRaining", "value" : true, "description" : "The value is 'yes' is it's raining and 'no' if it's not." },
+{"name" : "rtSunrise", "value" : "07:58", "description" : "Time of Sunrise today." },
+{"name" : "rtSunset", "value" : "16:46", "description" : "Time of Sunset today." },
+{"name" : "rtForeIcon", "value" : 6, "description" : "23: cloudy, sun, rain, and snow; 2 : cloudy; 3 : cloudy and rain; 22 : cloudy, sun, and snow; 19 : cloudy, rain, and snow; 6 : cloudy with sun; 7 : cloudy, sun, and rain; 8 : sun; 18 : cloudy, snow" },
+{"name" : "rtForeRule", "value" : 9, "description" : "This is a compound number used to generate the forecast strings that are displayed on the console when the forecast button is pressed. To get the actual forecast strings, use the rtForecast variable." },
+{"name" : "rtForecast", "value" : "Partly cloudy with little temperature change.", "description" : "This is a variable length string of the forecast text. This is the same text that is displayed on the console when the forecast button is pressed." },
+{"name" : "rtThswIndex", "value" : -256, "description" : "rtThswIndex" },
+{"name" : "rtStormStartDate", "value" : null, "description" : "Date that the current storm started. Rain storms are started when it starts raining, and end when it doesn't rain for 24 hours." },
+{"name" : "rtDayET", "value" : 0.000, "description" : "The Evapotranspiration rate for today." },
+{"name" : "rtMonthET", "value" : 2.47, "description" : "The Evapotranspiration rate for the month." },
+{"name" : "rtXmitBattt", "value" : 0, "description" : "Voltage level of the transmitter batteries. " },
+{"name" : "rtBattVoltage", "value" : 4.7, "description" : "Voltage level of the console batteries." },
+{"name" : "rtNextArchiveRecord", "value" : "0x04f0", "description" : "Next db record" },
+{"name" : "datetime", "value": "2017-12-22T16:05:46", "description" : "Date and time of the weather station in ISO-8601 format."}
+]
 ```
 
 ## His/Lows Example Output
 ```
-hlBaroLoDay = 30.08
-hlBaroHiDay = 30.15
-hlBaroLoMonth = 29.98
-hlBaroHiMonth = 30.23
-hlBaroLoYear = 29.54
-hlBaroHiYear = 30.23
-hlBaroLoTime = 16:15
-hlBaroHiTime = 10:04
-hlWindHiDay = 9
-hlWindHiTime = 12:37
-hlWindHiMonth = 33
-hlWindHiYear = 39
-hlInTempHiDay = 80.6
-hlInTempLoDay = 69.0
-hlInTempHiTime = 17:10
-hlInTempLoTime = 05:30
-hlInTempLoMonth = 69.0
-hlInTempHiMonth = 83.0
-hlInTempLoYear = 64.3
-hlInTempHiYear = 96.0
-hlInHumHiDay = 75
-hlInHumLoDay = 60
-hlInHumHiTime = 11:51
-hlInHumLoTime = 01:40
-hlInHumHiMonth = 80
-hlInHumLoMonth = 40
-hlInHumHiYear = 87
-hlInHumLoYear = 26
-hlOutTempHiDay = 79.0
-hlOutTempLoDay = 56.6
-hlOutTempHiTime = 13:54
-hlOutTempLoTime = 04:43
-hlOutTempLoMonth = 56.6
-hlOutTempHiMonth = 84.5
-hlOutTempHiYear = 96.0
-hlOutTempLoYear = 56.4
-hlDewLoDay = 48
-hlDewHiDay = 70
-hlDewLoTime = 06:24
-hlDewHiTime = 11:03
-hlDewHiMonth = 71
-hlDewLoMonth = 48
-hlDewHiYear = 83
-hlDewLoYear = 46
-hlChillLoDay = 57
-hlChillLoTime = 04:33
-hlChillLoMonth = 57
-hlChillLoYear = 56
-hlHeatHiDay = 82
-hlHeatHiTime = 13:54
-hlHeatHiMonth = 84
-hlHeatHiYear = 118
-hlSolarHiDay = 84.9
-hlSolarHiTime = 11:57
-hlSolarHiMonth = 85.6
-hlSolarHiYear = 140.3
-hlUVHiDay = 5.1
-hlUVHiTime = 11:35
-hlUVHiMonth = 5.4
-hlUVHiYear = 13.6
-hlRainRateHiDay = 0.00
-hlRainRateHiTime = n/a
-hlRainRateHiHour = 0.00
-hlRainRateHiMonth = 0.00
-hlRainRateHiYear = 5.38
+[
+{"name" : "hlInTempLoTime", "value" : ["03:15","03:15"], "description" : "The time that the [lowest,highest] values were recorded." },
+{"name" : "hlInTempLoDay", "value" : [21.1,24.6], "description" : "The [lowest,highest] indoor temperature in degrees Celsius for today." },
+{"name" : "hlInTempLoMonth", "value" : [16.7,29.4], "description" : "The [lowest,highest] indoor temperature in degrees Celsius for this month." },
+{"name" : "hlInTempLoYear", "value" : [16.7,29.4], "description" : "The [lowest,highest] indoor temperature in degrees Celsius for this year." },
+{"name" : "hlOutTempLoTime", "value" : ["null","null"], "description" : "The time that the [lowest,highest] outside temperature values were recorded." },
+{"name" : "hlOutTempLoDay", "value" : [1802.6,-1838.2], "description" : "The [lowest,highest] outside temperature in degrees Celsius for today." },
+{"name" : "hlOutTempLoMonth", "value" : [7.8,31.7], "description" : "The [lowest,highest] outside temperature in degrees Celsius for the month." },
+{"name" : "hlOutTempLoYear", "value" : [7.8,31.7], "description" : "The [lowest,highest] outside temperature in degrees Celsius for the year." },
+{"name" : "hlBaroLoTime", "value" : ["06:39","06:39"], "description" : "The time that the [lowest,highest] barometer values were recorded." },
+{"name" : "hlBaroLoDay", "value" : [1023.23,1026.35], "description" : "The [lowest,highest] barometer reading in hPa so far today." },
+{"name" : "hlBaroLoMonth", "value" : [989.33,1030.48], "description" : "The [lowest,highest] barometer reading in hPa so far this month." },
+{"name" : "hlBaroLoYear", "value" : [989.33,1030.48], "description" : "The [lowest,highest] barometer reading in hPa so far this year." },
+{"name" : "hlChillLoTime", "value" : ["null","null"], "description" : "The time that the [lowest,highest] wind chill values were recorded." },
+{"name" : "hlChillLoDay", "value" : [32767,0], "description" : "The [lowest,highest] wind chill in degrees Fahrenheit for today." },
+{"name" : "hlChillLoMonth", "value" : [46,12], "description" : "The [lowest,highest] wind chill in degrees Fahrenheit for the month." },
+{"name" : "hlChillLoYear", "value" : [46,12], "description" : "The [lowest,highest] wind chill in degrees Fahrenheit for the year." },
+{"name" : "hlInHumLoTime", "value" : ["16:03","16:03"], "description" : "The time that the [lowest,highest] indoor humidity values were recorded." },
+{"name" : "hlInHumLoDay", "value" : [23,31], "description" : "The [lowest,highest] indoor humidity in percent for today." },
+{"name" : "hlInHumLoMonth", "value" : [17,56], "description" : "The [lowest,highest] indoor humidity in percent for the month." },
+{"name" : "hlInHumLoYear", "value" : [17,56], "description" : "The [lowest,highest] indoor humidity in percent for the year." },
+{"name" : "hlOutHumLoTime", "value" : ["null","null"], "description" : "The time that the [lowest,highest] outdoor humidity values were recorded." },
+{"name" : "hlOutHumLoDay", "value" : [255,255], "description" : "The [lowest,highest] outdoor humidity in percent for today." },
+{"name" : "hlOutHumLoMonth", "value" : [255,255], "description" : "The [lowest,highest] outdoor humidity in percent for the month." },
+{"name" : "hlOutHumLoYear", "value" : [255,255], "description" : "The [lowest,highest] outdoor humidity in percent for the year." },
+{"name" : "hlDewLoTime", "value" : ["null","null"], "description" : "The time that the [lowest,highest] dew point values were recorded." },
+{"name" : "hlDewLoDay", "value" : [32767,-32768], "description" : "The [lowest,highest] dew point in degrees Fahrenheit for today." },
+{"name" : "hlDewLoMonth", "value" : [40,63], "description" : "The [lowest,highest] dew point in degrees Fahrenheit for the month." },
+{"name" : "hlDewLoYear", "value" : [40,63], "description" : "The [lowest,highest] dew point in degrees Fahrenheit for the year." },
+{"name" : "hlHeatHiTime", "value" : ["none","null"], "description" : "The time that the highest heat index value was recorded." },
+{"name" : "hlHeatHiDay", "value" : [null,-32768], "description" : "The highest heat index in degrees Fahrenheit for today." },
+{"name" : "hlHeatHiMonth", "value" : [null,88], "description" : "The highest heat index in degrees Fahrenheit for month." },
+{"name" : "hlHeatHiYear", "value" : [null,88], "description" : "The highest heat index in degrees Fahrenheit for the year." },
+{"name" : "hlSolarHiTime", "value" : ["none","none"], "description" : "The time that the highest solar radiation value was recorded." },
+{"name" : "hlSolarHiDay", "value" : [null,0.0], "description" : "The highest solar radiation value for today." },
+{"name" : "hlSolarHiMonth", "value" : [null,103.2], "description" : "The highest solar radiation value for the month." },
+{"name" : "hlSolarHiYear", "value" : [null,103.2], "description" : "The highest solar radiation value for the year." },
+{"name" : "hlUVHiTime", "value" : ["none","none"], "description" : "The time that the highest UV index value was recorded." },
+{"name" : "hlUVHiDay", "value" : [null,0.0], "description" : "The highest UV index value for today." },
+{"name" : "hlUVHiMonth", "value" : [null,4.8], "description" : "The highest UV index value for the month." },
+{"name" : "hlUVHiYear", "value" : [null,4.8], "description" : "The highest UV index value for the year." },
+{"name" : "hlRainRateHiTime", "value" : ["none","none"], "description" : "The time that the highest rain rate value was recorded." },
+{"name" : "hlRainRateHiDay", "value" : [null,0.00], "description" : "The highest rain rate in inches per hour for today." },
+{"name" : "hlRainRateHiHour", "value" : [null,0.00], "description" : "The highest rain rate in inches per hour for the last hour." },
+{"name" : "hlRainRateHiMonth", "value" : [null,8.23], "description" : "The highest rain rate in inches per hour for the month." },
+{"name" : "hlRainRateHiYear", "value" : [null,8.23], "description" : "The highest rain rate in inches per hour for the year." },
+{"name" : "datetime", "value": "2017-12-22T16:05:56", "description" : "Date and time of the weather station in ISO-8601 format."}
+]
 ```
 
 ## Graph Data Example Output
