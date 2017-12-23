@@ -286,7 +286,6 @@ static void PrintTimeRef(void);
 
 
 
-
 /**
  * Verifies the crc against a passed buffer. Returns the non-zero CRC code
  * if error, zero if the crc passed.
@@ -396,7 +395,9 @@ void PrintTime(char *szData)
     /* strftime(szBuf, sizeof(szBuf), "%A, %B %d, %Y  %I:%M %p\n"  , &stm); */
     strftime(szBuf, sizeof(szBuf), "%Y-%m-%dT%H:%M:%S"  , &stm);
 
+    /* printing time in json format */
     printf("{\"name\" : \"%s\", \"value\": \"%s\", \"description\" : \"%s\"}\n", _DATETIME, szBuf, _DESCR_DATETIME);
+
 }
 
 
@@ -676,7 +677,7 @@ void PrintTimeRef(void)
 
 
 /**
- * Dumps the real time weather data to stdout.
+ * Dumps the real time weather data to stdout in json format.
  *
  * @param includeLoop2Data Whether or not to include data from LOOP2 packet
  */
@@ -785,7 +786,7 @@ void PrintRTData(bool includeLoop2Data)
 
 
 /**
- * Dumps the highs/lows weather data to stdout.
+ * Dumps the highs/lows weather data to stdout in json format.
  */
 void PrintHLData(void)
 {

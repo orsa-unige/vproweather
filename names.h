@@ -83,7 +83,7 @@
 
 #define _NEXT_RECORD            "rtNextArchiveRecord"
 
-/* real time data description*/
+/* real time data description */
 #define  _DESCR_INSIDE_TEMP            "Current inside temperature in degrees Celsius."
 #define  _DESCR_OUTSIDE_TEMP           "Current outside temperature in degrees Celsius."
 
@@ -256,6 +256,7 @@
 #define  _DESCR_RAIN_RATE_HI_MONTH "The highest rain rate in mm per hour for the month."
 #define  _DESCR_RAIN_RATE_HI_YEAR  "The highest rain rate in mm per hour for the year."
 
+    
 /* Other data descriptions for the archive header.*/
     
 // Temperatures

@@ -98,8 +98,11 @@ int main(int argc, char *argv[])
         printf("Original work by Joe Jaworski http://www.joejaworski.com/weather/\n");
         printf("\nUsage: vproweather [Options] Device\n");
         printf("Options:\n");
-        printf(" -x, --get-realtime     Get real time weather data.\n");
-        printf(" -l, --get-highlow      Get Highs/Lows data.\n");
+        printf(" -x, --get-realtime     Get real time weather data in json format.\n");
+        printf(" -l, --get-highlow      Get Highs/Lows data in json format.\n");
+        printf(" -i, --get-interval     Get the current archive interval in json format.\n");
+        printf(" -t, --get-time         Get weather station time in json format.\n");
+        printf(" -s, --set-time         Set weather station time to system time.\n");
         printf(" -g, --get-graph        Get graph data.\n");
         printf(" -a, --get-archive=arc  Print either:\n");
         printf("                          - all the archive records (default)\n");
@@ -108,9 +111,6 @@ int main(int argc, char *argv[])
         printf("                          - the last arc records\n");
         printf(" -A, --archive-header   Print the archive data header with the\n");
         printf("                        archive records\n");
-        printf(" -i, --get-interval     Get the current archive interval\n");
-        printf(" -t, --get-time         Get weather station time.\n");
-        printf(" -s, --set-time         Set weather station time to system time.\n");
         printf(" -o, --bklite-on        Turn backlite on.\n");
         printf(" -f, --bklite-off       Turn backlite off.\n");
         printf(" -r, --version          Query for Davis firmware version string.\n");
@@ -122,8 +122,8 @@ int main(int argc, char *argv[])
         printf(" Device                 Serial Device. Required parameter.\n");
         printf("\n");
         printf("Examples:\n");
-        printf("vproweather --get-realtime /dev/ttyp0 > rtwdata.txt\n");
-        printf("Gets real time data set to file rtwdata.txt from serial device ttyp0\n");
+        printf("vproweather --get-realtime /dev/ttyp0 > rtwdata.json\n");
+        printf("Gets real time data set to file rtwdata.json from serial device ttyp0\n");
         printf("vproweather --verbose --bklite-on /dev/ttyp0\n");
         printf("Turns the LCD backlite On, illuminating the display.\n");
         exit(2);
@@ -330,41 +330,6 @@ int main(int argc, char *argv[])
     }
 
 
-
-    /* Get highs/lows data set */
-    if(bGetHLD) {
-        if(runCommand("HILOWS\n", -1, 438, "hi/lows", true, true)) {
-          exit(2);
-        }
-
-
-        printf("[\n");                      /* ...json */
-
-        GetHLData(szSerBuffer);             /* get data to struct */
-        PrintHLData();                      /* ...and to stdout */
-
-        if (runCommand("GETTIME\n", -1, 8, "time", true, true)) {
-            exit(2);
-        }
-        PrintTime(szSerBuffer);             /* ...and to stdout */
-
-        printf("]\n");                      /* ...json */
-
-    }
-
-
-
-    /* Get Graph data sets */
-    if(bGetGD) {
-        if (runCommand("GETEE\n", -1, 4098, "graph", true, true)) {
-          exit(2);
-        }
-
-        PrintGDData((uint8_t*)szSerBuffer);         /* ...and to stdout */
-    }
-
-
-
     /* Get real time data set (Davis LOOP data) */
     if(bGetRTD) {
         /* Get LOOP 1 data */
@@ -380,17 +345,51 @@ int main(int argc, char *argv[])
           GetRT2Data(szSerBuffer);          /* get data to struct */
         }
 
-        printf("[\n");                      /* ...json */
+        printf("[\n");                      /* ...open json array */
 
-        PrintRTData(gotV2Data);             /* ...and to stdout */
+        PrintRTData(gotV2Data);             /* ...print to stdout */
 
         if (runCommand("GETTIME\n", -1, 8, "time", true, true)) {
             exit(2);
         }
-        PrintTime(szSerBuffer);             /* ...and to stdout */
+        PrintTime(szSerBuffer);             /* ...add ISO date */
 
-        printf("]\n");                      /* ...json */
+        printf("]\n");                      /* ...close json array */
     }
+
+
+
+    /* Get highs/lows data set */
+    if(bGetHLD) {
+        if(runCommand("HILOWS\n", -1, 438, "hi/lows", true, true)) {
+          exit(2);
+        }
+
+        printf("[\n");                      /* ...open array */
+
+        GetHLData(szSerBuffer);             /* get data to struct */
+        PrintHLData();                      /* ...print to stdout */
+
+        if (runCommand("GETTIME\n", -1, 8, "time", true, true)) {
+            exit(2);
+        }
+        PrintTime(szSerBuffer);             /* ...add ISO date */
+
+        printf("]\n");                      /* ...close json array */
+
+    }
+
+
+
+    /* Get Graph data sets */
+    if(bGetGD) {
+        if (runCommand("GETEE\n", -1, 4098, "graph", true, true)) {
+          exit(2);
+        }
+
+        PrintGDData((uint8_t*)szSerBuffer);         /* ...and to stdout */
+    }
+
 
 
 

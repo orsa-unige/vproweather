@@ -49,7 +49,6 @@ extern void PrintArchPacket(int maxArcRecords);
 
 extern char* ForecastString(uint16_t wRule);
 
-
 /* graphic data sets- memory pointer offsets */
 #define GRAPH_START                  177
 
@@ -472,7 +471,8 @@ typedef struct t_HLDATA
 
     uint8_t  yExtraLeaf[150];/* 126 Extra/Leaf/Soil Temperatures             */
 
-    /* Outside Humidity */
+    /* Outside Humidity: first 8 entries (see Outside/Extra Hums on manual, pag. 30) */
+    /* Index 0 = Outside Humidity */
     uint8_t  yOutHumHiDay;    /* 276 Outside high humidity for the day          */
     uint8_t  yOutHumLoDay;    /* 277 Outside low humidity for the day           */
     uint16_t wOutHumHiTime;   /* 278 Outside high humidity time for today       */
@@ -482,7 +482,8 @@ typedef struct t_HLDATA
     uint8_t  yOutHumHiYear;   /* 284 Outside high humidity for the year         */
     uint8_t  yOutHumLoYear;   /* 285 Outside low humidity for the year          */
 
-    /* uint8_t  yExtraTemps[80];/\* 276 Extra outside temp/Humidities            *\/ */
+    /* Index 1 – 7 = Extra Humidities */
+//    uint8_t  yExtraTemps[80];/* 276 Extra outside temp/Humidities            */
     uint8_t  yExtraTemps[70]; /* 286 Extra outside temp/Humidities            */
 
     uint8_t  ySoilMoist[40]; /* 356 Soil Moisture section                    */
