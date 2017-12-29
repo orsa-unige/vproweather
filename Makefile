@@ -7,7 +7,7 @@ all:	$(TARGET)
 $(TARGET): main.o dhandler.o
 	$(CC) main.o dhandler.o -o $(TARGET)
 
-main.o: main.c main.h dhandler.h
+main.o: main.c main.h dhandler.h 
 	$(CC) $(CFLAGS) -c main.c
 
 dhandler.o: dhandler.c dhandler.h names.h

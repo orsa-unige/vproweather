@@ -44,5 +44,6 @@
 
 #ifdef __cplusplus
 }
+
 #endif /* __cplusplus */
 #endif /* __MAIN_H__ */
