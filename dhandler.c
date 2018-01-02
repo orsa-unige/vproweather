@@ -665,7 +665,7 @@ void PrintRTData(bool includeLoop2Data)
     printf("\"%s\" : {  \"value\" : %0.3f, \"description\" : \"%s\" },\n", _DAY_ET, rcd.wETDay / 1000.0,  _DESCR_DAY_ET);
     printf("\"%s\" : {  \"value\" : %0.2f, \"description\" : \"%s\" },\n", _MONTH_ET, rcd.wETMonth / 100.0,  _DESCR_MONTH_ET);
 
-    printf("{\"name\" : \"%st\", \"value\" : %d, \"description\" : \"%s\" },\n", _XMIT_BATT, rcd.yXmitBatt,  _DESCR_XMIT_BATT);
+    printf("\"%s\" : {  \"value\" : %d, \"description\" : \"%s\" },\n", _XMIT_BATT, rcd.yXmitBatt,  _DESCR_XMIT_BATT);
     printf("\"%s\" : {  \"value\" : %.1f, \"description\" : \"%s\" },\n", _BATT_VOLTAGE, ((rcd.wBattLevel * 300)/512)/100.0,  _DESCR_BATT_VOLTAGE);
 
     printf("\"%s\" : {  \"value\" : \"0x%04x\", \"description\" : \"Next db record\" },\n", _NEXT_RECORD, rcd.wNextRec );
