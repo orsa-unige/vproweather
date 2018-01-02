@@ -346,7 +346,7 @@ int main(int argc, char *argv[])
           GetRT2Data(szSerBuffer);          /* get data to struct */
         }
 
-        printf("[\n");                      /* ...open json array */
+        printf("{\n");                      /* ...open json array */
 
         PrintRTData(gotV2Data);             /* ...print to stdout */
 
@@ -355,7 +355,7 @@ int main(int argc, char *argv[])
         }
         PrintTime(szSerBuffer);             /* ...add ISO date */
 
-        printf("]\n");                      /* ...close json array */
+        printf("}\n");                      /* ...close json array */
     }
 
 
@@ -366,7 +366,7 @@ int main(int argc, char *argv[])
           exit(2);
         }
 
-        printf("[\n");                      /* ...open array */
+        printf("{\n");                      /* ...open array */
 
         GetHLData(szSerBuffer);             /* get data to struct */
         PrintHLData();                      /* ...print to stdout */
@@ -376,7 +376,7 @@ int main(int argc, char *argv[])
         }
         PrintTime(szSerBuffer);             /* ...add ISO date */
 
-        printf("]\n");                      /* ...close json array */
+        printf("}\n");                      /* ...close json array */
 
     }
 
